@@ -9,11 +9,11 @@ import './App.css';
 class App extends React.Component {
     render() {
         return [
-            <NavBar key="1" />,
-            <Filter key="2" />,
+            <NavBar key="0" />,
+            <Filter key="1" />,
+            <Gallery key="2" />,
             <Gallery key="3" />,
-            <Gallery key="4" />,
-            <PostFeed key="5" />
+            <PostFeed key="4" />
         ];
     }
 }
