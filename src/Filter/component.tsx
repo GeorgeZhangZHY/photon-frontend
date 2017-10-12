@@ -44,39 +44,46 @@ export type FilterComponentProps = {
     handleExtra: FilterItemProps['handleExtra']
 };
 
-export function FilterComponent(props: FilterComponentProps) {
-    return (
-        <section className="filter">
-            <FilterItem
-                title="地区"
-                type="region"
-                options={props.displayRegions}
-                handleSelect={props.handleSelect}
-                extraOption=">>其他地区"
-                handleExtra={props.handleExtra}
-                selectedCode={props.filter.regionCode}
-            />
-            <FilterItem
-                title="费用"
-                type="cost"
-                options={props.costOptions}
-                handleSelect={props.handleSelect}
-                selectedCode={props.filter.costCode}
-            />
-            <FilterItem
-                title="身份"
-                type="identity"
-                options={props.identities}
-                handleSelect={props.handleSelect}
-                selectedCode={props.filter.identityCode}
-            />
-            <FilterItem
-                title="性别"
-                type="gender"
-                options={props.genders}
-                handleSelect={props.handleSelect}
-                selectedCode={props.filter.genderCode}
-            />
-        </section>
-    );
+export class FilterComponent extends React.Component<FilterComponentProps> {
+
+    componentDidMount() {
+        // todo
+    }
+
+    render() {
+        return (
+            <section className="filter">
+                <FilterItem
+                    title="地区"
+                    type="region"
+                    options={this.props.displayRegions}
+                    handleSelect={this.props.handleSelect}
+                    extraOption=">>其他地区"
+                    handleExtra={this.props.handleExtra}
+                    selectedCode={this.props.filter.regionCode}
+                />
+                <FilterItem
+                    title="费用"
+                    type="cost"
+                    options={this.props.costOptions}
+                    handleSelect={this.props.handleSelect}
+                    selectedCode={this.props.filter.costCode}
+                />
+                <FilterItem
+                    title="身份"
+                    type="identity"
+                    options={this.props.identities}
+                    handleSelect={this.props.handleSelect}
+                    selectedCode={this.props.filter.identityCode}
+                />
+                <FilterItem
+                    title="性别"
+                    type="gender"
+                    options={this.props.genders}
+                    handleSelect={this.props.handleSelect}
+                    selectedCode={this.props.filter.genderCode}
+                />
+            </section>
+        );
+    }    
 }
