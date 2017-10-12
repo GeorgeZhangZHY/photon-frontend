@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { Store, Option } from '../mainReducer';
-import FilterComponent from './component';
+import { FilterComponent, FilterComponentProps } from './component';
 import { setFilter } from './actions';
 
 const getDisplayRegions = (state: Store) => {
@@ -14,7 +14,7 @@ const getDisplayRegions = (state: Store) => {
     return displayRegions;
 };
 
-const mapStateToProps = (state: Store) => ({
+const mapStateToProps = (state: Store): Partial<FilterComponentProps> => ({
     displayRegions: getDisplayRegions(state),
     costOptions: state.costOptions,
     identities: state.identities,
@@ -22,9 +22,9 @@ const mapStateToProps = (state: Store) => ({
     filter: state.filter
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
-    handleSelect: (filter: Store['filter']) => {
-        dispatch(setFilter(filter));
+const mapDispatchToProps = (dispatch: Dispatch<{}>): Partial<FilterComponentProps> => ({
+    handleSelect: (newValue) => {
+        dispatch(setFilter(newValue));
     },
     handleExtra: () => {
         // todo

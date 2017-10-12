@@ -1,0 +1,20 @@
+.filter {
+    
+}
+
+.filter-item {
+    width: 100%;
+    border-bottom: 1px solid;
+}
+
+.filter-item li {
+    display: inline;
+    color: #1e56a0;
+    border-radius: 3px;
+    transition: all 0.4s;
+}
+
+.filter-item li.selected {
+    color: white;
+    background: #1e56a0;
+}

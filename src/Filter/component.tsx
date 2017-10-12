@@ -1,28 +1,40 @@
 import * as React from 'react';
 import { Option, Store } from '../mainReducer';
+import './Filter.css';
 
 type FilterItemProps = {
     title: string,
+    type: string,
     options: Option[],
-    handleSelect: (filter: Store['filter']) => void,
+    selectedCode: number,
+    handleSelect: (newValue: Partial<Store['filter']>) => void,
     extraOption?: string,
     handleExtra?: () => void
 };
 
-const FilterItem = ({ title, options, handleSelect, extraOption, handleExtra }: FilterItemProps) => (
-    <div>
-        <span>{title}：</span>
-        <ul>
-            {options.map(option =>
-                <li key={option.code} onClick={/* todo */}>{option.name}</li>)}
-            {extraOption ?
-                <li key="extra" onClick={handleExtra}>{extraOption}</li>
-                : null}
-        </ul>
-    </div>
-);
+const FilterItem = (
+    { title, type, options, selectedCode, handleSelect, extraOption, handleExtra }: FilterItemProps
+) => (
+        <div className="filter-item">
+            <span>{title}：</span>
+            <ul>
+                {options.map(option =>
+                    <li
+                        key={option.code}
+                        className={option.code === selectedCode ? 'selected' : ''}
+                        onClick={() => {
+                            handleSelect({ [type + 'code']: option.code });
+                        }}
+                    >{option.name}
+                    </li>)}
+                {extraOption ?
+                    <li key="extra" onClick={handleExtra}>{extraOption}</li>
+                    : null}
+            </ul>
+        </div>
+    );
 
-export default function FilterComponent(props: {
+export type FilterComponentProps = {
     displayRegions: Option[],
     costOptions: Option[],
     identities: Option[],
@@ -30,19 +42,41 @@ export default function FilterComponent(props: {
     filter: Store['filter'],
     handleSelect: FilterItemProps['handleSelect'],
     handleExtra: FilterItemProps['handleExtra']
-}) {
+};
+
+export function FilterComponent(props: FilterComponentProps) {
     return (
-        <section>
+        <section className="filter">
             <FilterItem
                 title="地区"
+                type="region"
                 options={props.displayRegions}
                 handleSelect={props.handleSelect}
                 extraOption=">>其他地区"
                 handleExtra={props.handleExtra}
+                selectedCode={props.filter.regionCode}
             />
-            <FilterItem title="费用" options={props.costOptions} handleSelect={props.handleSelect} />
-            <FilterItem title="身份" options={props.identities} handleSelect={props.handleSelect} />
-            <FilterItem title="性别" options={props.genders} handleSelect={props.handleSelect} />
+            <FilterItem
+                title="费用"
+                type="cost"
+                options={props.costOptions}
+                handleSelect={props.handleSelect}
+                selectedCode={props.filter.costCode}
+            />
+            <FilterItem
+                title="身份"
+                type="identity"
+                options={props.identities}
+                handleSelect={props.handleSelect}
+                selectedCode={props.filter.identityCode}
+            />
+            <FilterItem
+                title="性别"
+                type="gender"
+                options={props.genders}
+                handleSelect={props.handleSelect}
+                selectedCode={props.filter.genderCode}
+            />
         </section>
     );
 }

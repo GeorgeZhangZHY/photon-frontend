@@ -1,6 +1,11 @@
 import { Store } from '../mainReducer';
 
-export const setFilter = (filter: Store['filter']) => ({
+export type SetFilter = {
     type: 'SET_FILTER',
-    filter
+    newValue: Partial<Store['filter']>
+};
+
+export const setFilter = (newValue: SetFilter['newValue']) => ({
+    type: 'SET_FILTER',
+    newValue
 });
