@@ -1,5 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import { Store, Option } from '../mainReducer';
+import { Store } from '../mainReducer';
 import { FilterComponent, FilterComponentProps } from './component';
 import { setFilter } from './actions';
 
@@ -9,7 +9,9 @@ const getDisplayRegions = (state: Store) => {
     if (!selectedRegionCode.toString().endsWith('0000')) {
         // 追加显示用户选择的非省级地区
         const selectedRegion = state.regions.find(region => region.code === state.filter.regionCode);
-        displayRegions.push(<Option> selectedRegion);
+        if (selectedRegion) {
+            displayRegions.push(selectedRegion);
+        }
     }
     return displayRegions;
 };

@@ -46,10 +46,6 @@ export type FilterComponentProps = {
 
 export class FilterComponent extends React.Component<FilterComponentProps> {
 
-    componentDidMount() {
-        // todo
-    }
-
     render() {
         return (
             <section className="filter">
@@ -62,7 +58,7 @@ export class FilterComponent extends React.Component<FilterComponentProps> {
                     handleExtra={this.props.handleExtra}
                     selectedCode={this.props.filter.regionCode}
                 />
-                <FilterItem
+                {/* <FilterItem
                     title="费用"
                     type="cost"
                     options={this.props.costOptions}
@@ -82,8 +78,8 @@ export class FilterComponent extends React.Component<FilterComponentProps> {
                     options={this.props.genders}
                     handleSelect={this.props.handleSelect}
                     selectedCode={this.props.filter.genderCode}
-                />
+                /> */}
             </section>
         );
-    }    
+    }
 }

@@ -1,4 +1,6 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import regions from './App/reducer';
+import filter from './Filter/reducer';
 
 export type Option = {
     code: number,
@@ -21,7 +23,11 @@ export type Store = {
     newWorks: {},
     posts: {},
     costOptions: Option[],
-    regions: Option[],
+    regions: Option[],  // 所有地区
     identities: Option[],
     genders: Option[]
 };
+
+export default combineReducers({
+    filter, regions
+});
