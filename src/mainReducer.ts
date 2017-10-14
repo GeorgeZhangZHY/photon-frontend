@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import regions from './App/reducer';
+import { regions, genders, identities, costOptions } from './App/reducer';
 import filter from './Filter/reducer';
 
 export type Option = {
@@ -19,8 +19,16 @@ export type Store = {
         identityCode: number,
         genderCode: number
     },
-    recommendedThemes: {},
-    newWorks: {},
+    recommendedThemes: {
+        title: string,
+        coverUrl: string,
+        themeId: number
+    }[],
+    newAlbums: {
+        title: string,
+        coverUrl: string,
+        albumId: number
+    }[],
     posts: {},
     costOptions: Option[],
     regions: Option[],  // 所有地区
@@ -29,5 +37,5 @@ export type Store = {
 };
 
 export default combineReducers({
-    filter, regions
+    filter, regions, costOptions, identities, genders
 });

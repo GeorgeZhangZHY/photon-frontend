@@ -8,3 +8,7 @@ body {
 body * {
     box-sizing: border-box;
 }
+
+section {
+    background: white;
+}

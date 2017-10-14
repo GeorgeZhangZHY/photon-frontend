@@ -7,11 +7,24 @@
     border-bottom: 1px solid;
 }
 
+.filter-item ul{
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .filter-item li {
-    display: inline;
+    padding: 3px;
+    margin-bottom: 4px;
+    margin-right: 12px;
     color: #1e56a0;
     border-radius: 3px;
     transition: all 0.4s;
+    list-style-type: none;
+}
+
+.filter-item li:hover{
+    cursor: pointer;
+    background: #eeeeee;
 }
 
 .filter-item li.selected {
