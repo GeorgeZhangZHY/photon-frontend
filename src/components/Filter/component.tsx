@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Option, Store } from '../mainReducer';
+import { Store } from '../../global/mainReducer';
+import { Option } from '../../global/models';
 import './Filter.css';
 
 type FilterItemProps = {

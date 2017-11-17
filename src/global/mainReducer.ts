@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
-import { regions, genders, identities, costOptions } from './App/reducer';
-import filter from './Filter/reducer';
-
-export type Option = {
-    code: number,
-    name: string
-};
+import { regions, genders, identities, costOptions } from '../components/App/reducer';
+import filter from '../components/Filter/reducer';
+import { Option } from './models';
 
 export type Store = {
     user: {

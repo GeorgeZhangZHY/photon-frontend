@@ -1,8 +1,8 @@
-import { requestRegions } from '../netAccess/regions';
-import { requestIdentities } from '../netAccess/identities';
-import { requestCostOptions } from '../netAccess/costOptions';
-import { requestGenders } from '../netAccess/genders';
-import { Option } from '../mainReducer';
+import { requestRegions } from '../../netAccess/regions';
+import { requestIdentities } from '../../netAccess/identities';
+import { requestCostOptions } from '../../netAccess/costOptions';
+import { requestGenders } from '../../netAccess/genders';
+import { Option } from '../../global/models';
 
 export type AsyncFetchAction = {
     type: string,

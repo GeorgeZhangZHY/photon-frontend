@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import promiseMiddleware from 'redux-promise-middleware';
-import reducer from './mainReducer';
+import reducer from './global/mainReducer';
 import App from './App/App';
 import './index.css';
 

@@ -1,5 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import { Store } from '../mainReducer';
+import { Store } from '../../global/mainReducer';
 import { FilterComponent, FilterComponentProps } from './component';
 import { setFilter } from './actions';
 
