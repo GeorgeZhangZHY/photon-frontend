@@ -4,11 +4,11 @@ import { FilterComponent, FilterComponentProps } from './component';
 import { setFilter } from './actions';
 
 const getDisplayRegions = (state: Store) => {
-    let displayRegions = state.regions.filter(region => region.code.toString().endsWith('0000'));   // 省级区域
+    let displayRegions = state.regions.filter(region => region.regionCode.toString().endsWith('0000'));   // 省级区域
     const selectedRegionCode = state.filter.regionCode;
     if (!selectedRegionCode.toString().endsWith('0000')) {
         // 追加显示用户选择的非省级地区
-        const selectedRegion = state.regions.find(region => region.code === state.filter.regionCode);
+        const selectedRegion = state.regions.find(region => region.regionCode === state.filter.regionCode);
         if (selectedRegion) {
             displayRegions.push(selectedRegion);
         }

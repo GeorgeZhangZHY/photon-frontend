@@ -1,8 +1,5 @@
-import axios from 'axios';
-import rootUrl from './const';
-import { Option } from '../mainReducer';
+import { getData } from './getWithoutParams';
 
 export const requestIdentities = () => (
-    axios.get(rootUrl + '/identities')
-        .then(value => <Option[]> value.data)
+    getData('/identities').then(values => (<any[]>values).map(value => <string>value.identity))
 );

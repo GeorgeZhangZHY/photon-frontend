@@ -2,11 +2,12 @@ import { requestRegions } from '../../netAccess/regions';
 import { requestIdentities } from '../../netAccess/identities';
 import { requestCostOptions } from '../../netAccess/costOptions';
 import { requestGenders } from '../../netAccess/genders';
-import { Option } from '../../global/models';
+import { Region } from '../../global/models';
+import { requestTags } from '../../netAccess/tags';
 
-export type AsyncFetchAction = {
+export type FetchConstantsAction = {
     type: string,
-    payload?: Option[] | Error
+    payload?: Region[] | string[] | Error 
 };
 
 export const fetchRegions = () => ({
@@ -27,4 +28,9 @@ export const fetchCostOptions = () => ({
 export const fetchGenders = () => ({
     type: 'FETCH_GENDERS',
     payload: requestGenders()
+});
+
+export const fetchTags = () => ({
+    type: 'FETCH_TAGS',
+    payload: requestTags()
 });

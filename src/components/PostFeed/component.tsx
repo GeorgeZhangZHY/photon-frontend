@@ -1,20 +1,48 @@
 import * as React from 'react';
 import { Post } from '../../global/models';
+import UserBrief from '../UserBrief/UserBrief';
 
 export type PostFeedComponentProps = {
     posts: Post[],
 };
 
-export class PostFeedComponent extends React.Component<PostFeedComponentProps> {
+export function PostFeedComponent({ posts }: PostFeedComponentProps) {
+    return (
+        <div>
+            {posts.map(post =>
+                <PostBrief key={post.postId} {...post} />)}
+        </div>
+    );
+}
 
-    render() {
-        return (
+type PostBriefProps = Post;
+
+function PostBrief({
+    themeName, content, cost, costOption, tags,
+    isClosed, launchTime, ownerId, ownerGender,
+    ownerName, photoUrls, postId, ownerIdentity,
+    requestNum, requiredRegionCode, requiredRegionName,
+    themeCoverUrl, themeId, ownerAvatarUrl
+ }: PostBriefProps) {
+
+    return (
+        <section>
+            <UserBrief
+                avatarUrl={ownerAvatarUrl}
+                gender={ownerGender}
+                userId={ownerId}
+                identity={ownerIdentity}
+                regionName={''}
+                userName={ownerName}
+                regionCode={0}
+            />
+            <span>{content}</span>
+            <span>{costOption} {cost > 0 ? cost + '元' : ''}</span>
             <div>
-                {this.props.posts.map(post =>
-                    <section key={post.postId}>
-                        
-                    </section>)}
+                {photoUrls.map(url => <img key={url} src={url} />)}
             </div>
-        );
-    }
+            <span>{requiredRegionName} {launchTime}</span>
+            {requestNum > 0 ? <span>收到约拍{requestNum}条</span> : null}
+        </section>
+    );
 }

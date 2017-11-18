@@ -1,15 +1,11 @@
-export type Option = {
-    code: number,
-    name: string
-};
 
 export type NewPost = {
     ownerId: number,
     requiredRegionCode: number,
-    costOptionCode: number,
+    costOption: string,
     cost: number,
     content: string,
-    tagCodes: number[],
+    tags: string[],
     photoUrls: string[],   // 对于浏览器端刚上传的图片，为base64编码的dataUrl；对于从服务器发送的图片，则为路径
     themeId: number
 };
@@ -17,11 +13,13 @@ export type NewPost = {
 export type Post = {
     postId: number,
     ownerName: string,
-    ownerIdentityCode: number,
-    ownerGenderCode: number,
+    ownerIdentity: string,
+    ownerGender: string,
+    ownerAvatarUrl: string,
     launchTime: string,
     isClosed: boolean,
     themeName: string,
+    requiredRegionName: string,
     themeCoverUrl: string,
     requestNum: number  // 收到的约拍请求数
 } & NewPost;
@@ -35,7 +33,7 @@ export type NewAlbum = {
     shotDevice: string,
     description: string,
     photoUrls: string[],
-    tagCodes: number[],
+    tags: string[],
     coverOrdinal: number    // 封面图片对应于其所有图片中的后缀
 };
 
@@ -107,8 +105,8 @@ export type NewRequest = {
 
 export type RequesterInfo = {
     requesterName: string,
-    genderCode: number,
-    identityCode: number,
+    gender: string,
+    identity: string,
     avatarUrl: string,
     wechatQRCodeUrl: string,
     wechatId: string,
@@ -130,9 +128,10 @@ export type OwnRequest = {
 export type UserBriefInfo = {
     userId: number,
     userName: string,
-    identityCode: number,
-    genderCode: number,
+    identity: string,
+    gender: string,
     regionCode: number,
+    regionName: string,
     avatarUrl: string
 };
 
@@ -143,3 +142,8 @@ export type User = {
     phoneNum: string, // node-sqlite3在进行sql转义后，较大的数的长度始终无法匹配数据CHECK约束，改为字符串可解决
     wechatQRCodeUrl: string
 } & UserBriefInfo;
+
+export type Region = {
+    regionCode: number,
+    regionName: string
+};

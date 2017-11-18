@@ -1,9 +1,9 @@
-import { Store } from '../mainReducer';
-import { SetFilter } from './actions';
+import { Store } from '../../global/mainReducer';
+import { SetFilterAction } from './actions';
 
 const filter = (
-    state: Store['filter'] = { regionCode: 0, costCode: 0, identityCode: 0, genderCode: 0 },
-    action: SetFilter
+    state: Store['filter'] = { regionCode: 0, costOption: '全部', identity: '全部', gender: '全部' },
+    action: SetFilterAction
 ): Store['filter'] => {
     switch (action.type) {
         case 'SET_FILTER':

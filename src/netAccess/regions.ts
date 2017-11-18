@@ -1,8 +1,4 @@
-import axios from 'axios';
-import rootUrl from './const';
-import { Option } from '../mainReducer';
+import { getData } from './getWithoutParams';
+import { Region } from '../global/models';
 
-export const requestRegions = () => (
-    axios.get(rootUrl + '/regions')
-        .then(value => <Option[]> value.data)
-);
+export const requestRegions = () => <Promise<Region[]>>getData('/regions');

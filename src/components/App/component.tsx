@@ -10,7 +10,8 @@ export type AppComponentProps = {
     initRegions: () => void,
     initIdentities: () => void,
     initCostOptions: () => void,
-    initGenders: () => void
+    initGenders: () => void,
+    initTags: () => void
 };
 
 export class AppComponent extends React.Component<AppComponentProps> {
@@ -21,6 +22,7 @@ export class AppComponent extends React.Component<AppComponentProps> {
         this.props.initCostOptions();
         this.props.initIdentities();
         this.props.initGenders();
+        this.props.initTags();
     }
 
     render() {

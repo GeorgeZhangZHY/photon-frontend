@@ -1,8 +1,5 @@
-import axios from 'axios';
-import rootUrl from './const';
-import { Option } from '../mainReducer';
+import { getData } from './getWithoutParams';
 
 export const requestCostOptions = () => (
-    axios.get(rootUrl + '/costOptions')
-        .then(value => <Option[]> value.data)
+    getData('/costOptions').then(values => (<any[]>values).map(value => <string>value.costOption))
 );

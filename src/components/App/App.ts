@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { AppComponent, AppComponentProps } from './component';
-import { fetchRegions, fetchCostOptions, fetchGenders, fetchIdentities } from './actions';
+import { fetchRegions, fetchCostOptions, fetchGenders, fetchIdentities, fetchTags } from './actions';
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>): AppComponentProps => ({
     initRegions: () => {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>): AppComponentProps => ({
     },
     initGenders: () => {
         dispatch(fetchGenders());
+    },
+    initTags: () => {
+        dispatch(fetchTags());
     }
 });
 

@@ -1,19 +1,33 @@
 import * as React from 'react';
 import { UserBriefInfo } from '../../global/models';
 
-const genderLogos = [require('./male.svg'), require('./female.svg')];
+const genderLogos = {
+    '男': require('./male.svg'),
+    '女': require('./female.svg')
+};
 
-export type UserBriefComponentProps = {
+export type DispatchProps = {
     enterUserMainPage: (userId: number) => void
-} & UserBriefInfo;
+};
 
-export function UserBriefComponent(props: UserBriefComponentProps) {
+export type OwnProps = UserBriefInfo;
+
+type UserBriefComponentProps = DispatchProps & OwnProps;
+
+export function UserBriefComponent({
+    regionName, userId, userName, identity,
+    avatarUrl, enterUserMainPage, gender
+}: UserBriefComponentProps) {
+
+    let handleClick = () => enterUserMainPage(userId);
+
     return (
         <div>
-            <img src={props.avatarUrl} alt="头像" />
-            <span>{props.userName}</span>
-            <img src={genderLogos[props.genderCode - 1]} alt="性别" />
-            <span>{props.identityCode}</span>
+            <img src={avatarUrl} alt="头像" onClick={handleClick} />
+            <span onClick={handleClick}>{userName}</span>
+            <img src={genderLogos[gender]} alt="性别" />
+            <span>{identity}</span>
+            {regionName && <span>{regionName}</span>}
         </div>
     );
 }

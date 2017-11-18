@@ -1,8 +1,5 @@
-import axios from 'axios';
-import rootUrl from './const';
-import { Option } from '../global/models';
+import { getData } from './getWithoutParams';
 
 export const requestGenders = () => (
-    axios.get(rootUrl + '/genders')
-        .then(value => <Option[]> value.data)
+    getData('/genders').then(values => (<any[]>values).map(value => <string>value.gender))
 );
