@@ -2,17 +2,26 @@ import * as React from 'react';
 import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 
-export type PostFeedComponentProps = {
-    posts: Post[],
+export type DispatchProps = {
+    
 };
 
-export function PostFeedComponent({ posts }: PostFeedComponentProps) {
-    return (
-        <div>
-            {posts.map(post =>
-                <PostBrief key={post.postId} {...post} />)}
-        </div>
-    );
+export type StateProps = {
+    posts: Post[]
+};
+
+type PostFeedComponentProps = StateProps & DispatchProps;
+
+export class PostFeedComponent extends React.Component<PostFeedComponentProps> {
+
+    render() {
+        return (
+            <div>
+                {this.props.posts.map(post =>
+                    <PostBrief key={post.postId} {...post} />)}
+            </div>
+        );
+    }    
 }
 
 type PostBriefProps = Post;
