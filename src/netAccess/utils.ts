@@ -4,7 +4,7 @@ import rootUrl from './const';
 export function getData<T>(relativeUrl: string, params?: {}) {
     return axios.get(rootUrl + relativeUrl, {
         params
-    }).then(value => <T>value.data);
+    }).then(response => <T>response.data);
 }
 
 export const postData = (relativeUrl: string, body: {}) => (

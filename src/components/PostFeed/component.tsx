@@ -3,17 +3,20 @@ import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 
 export type DispatchProps = {
-    
+
 };
 
 export type StateProps = {
+
+};
+
+export type OwnProps = {
     posts: Post[]
 };
 
-type PostFeedComponentProps = StateProps & DispatchProps;
+type PostFeedComponentProps = StateProps & DispatchProps & OwnProps;
 
 export class PostFeedComponent extends React.Component<PostFeedComponentProps> {
-
     render() {
         return (
             <div>
@@ -21,7 +24,7 @@ export class PostFeedComponent extends React.Component<PostFeedComponentProps> {
                     <PostBrief key={post.postId} {...post} />)}
             </div>
         );
-    }    
+    }
 }
 
 type PostBriefProps = Post;

@@ -7,8 +7,9 @@ export const addNewRequest = (userId: number, postId: number, message: string) =
     message
 });
 
-export const checkRequest = (requesterId: number, postId: number) => getData<{ hasRequested: boolean }>(
+export const checkHasRequested = (requesterId: number, postId: number) => getData<{ hasRequested: boolean }>(
     '/follows/check', {
-    requesterId,
-    postId
-}).then(value => value.hasRequested);
+        requesterId,
+        postId
+    }
+).then(value => value.hasRequested);

@@ -136,7 +136,7 @@ export type UserBriefInfo = {
 };
 
 export type User = {
-    password?: string,
+    password?: string,  // 只在注册时有
     wechatId: string,
     qqNum: number,
     phoneNum: string, // node-sqlite3在进行sql转义后，较大的数的长度始终无法匹配数据CHECK约束，改为字符串可解决

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 import Dialog from '../Models/Dialog';
-import { addNewRequest, checkRequest } from '../../netAccess/request';
+import { addNewRequest, checkHasRequested } from '../../netAccess/request';
+import { ChangeEvent } from 'react';
 
 export type DispatchProps = {
     handleClosePost: (postId: number) => void,
@@ -30,17 +31,24 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             hasRequested: false,
             message: ''
         };
-        this.handleDialogConfirm = this.handleDialogConfirm.bind(this);
+        this.handleRequestConfirm = this.handleRequestConfirm.bind(this);
+        this.handleRequestCancel = this.handleRequestCancel.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.showRequestDialog = this.showRequestDialog.bind(this);
     }
 
     componentDidMount() {
         const { postId, currentUserId } = this.props;
-        checkRequest(currentUserId, postId).then(hasRequested => {
+        checkHasRequested(currentUserId, postId).then(hasRequested => {
             this.setState({ hasRequested });
         });
     }
 
-    handleDialogConfirm() {
+    showRequestDialog() {
+        this.setState({ showDialog: true });
+    }
+
+    handleRequestConfirm() {
         let { message } = this.state;
         let { currentUserId, postId } = this.props;
         this.setState({
@@ -52,6 +60,18 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         });
     }
 
+    handleRequestCancel() {
+        this.setState({
+            showDialog: false,
+            message: ''
+        });
+    }
+
+    handleChange(event: ChangeEvent<HTMLInputElement>) {
+        this.setState({ message: event.target.value });
+        event.preventDefault();
+    }
+
     render() {
 
         const {
@@ -61,7 +81,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             themeCoverUrl, themeId, themeName, currentUserId
         } = this.props;
 
-        const { message, showDialog } = this.state;
+        const { message, showDialog, hasRequested } = this.state;
 
         let operations;
         if (ownerId === currentUserId) {
@@ -73,7 +93,9 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                 </div>
             );
         } else {
-            operations = <button>我要约拍TA</button>;
+            operations = hasRequested ?
+                <button>已经约拍</button>
+                : <button onClick={this.showRequestDialog}>我要约拍TA</button>;
         }
 
         return (
@@ -110,10 +132,18 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                 {showDialog ?
                     <Dialog
                         title="我要约拍TA"
-                        onCancel={}
-                        onConfirm={}
+                        onCancel={this.handleRequestCancel}
+                        onConfirm={this.handleRequestConfirm}
                     >
-
+                        <label>
+                            约拍留言（必填）
+                            <input
+                                type="text"
+                                value={message}
+                                onChange={this.handleChange}
+                                placeholder="例如拍摄时间、地点、要求等"
+                            />
+                        </label>
                     </Dialog>
                     : null
                 }
