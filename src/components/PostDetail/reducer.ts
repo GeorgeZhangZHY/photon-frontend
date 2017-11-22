@@ -1,29 +1,27 @@
-import { } from '../../global/mainReducer';
+import { Store } from '../../global/mainReducer';
 import { PostDetailAction } from './actions';
-import { Post } from '../../global/models';
+import { PostListAction } from '../PostList/actions';
 
-const postItem = (
-    state: Post = {
+const currentPost = (
+    state: Store['currentPost'] = {
         postId: 0, content: '', cost: 0, costOption: '', isClosed: false,
         launchTime: '', ownerAvatarUrl: '', ownerGender: '',
         ownerId: 0, ownerIdentity: '', ownerName: '', photoUrls: [],
         requestNum: 0, requiredRegionCode: 0, requiredRegionName: '',
         tags: [], themeCoverUrl: '', themeId: 0, themeName: ''
     },
-    action: PostDetailAction
-): Post => {
+    action: PostDetailAction | PostListAction
+): Store['currentPost'] => {
     switch (action.type) {
-        case 'CLOSE_POST_FULFILLED':
-            return state.postId === action.postId ?
-                { ...state, isClosed: true }
-                : state;
-        case 'ADD_NEW_REQUEST_FULFILLED':
-            return state.postId === action.postId ?
-                { ...state, requestNum: state.requestNum + 1 }
-                : state;
+        case 'CLOSE_POST':
+            return { ...state, isClosed: true };
+        case 'ADD_NEW_REQUEST':
+            return { ...state, requestNum: state.requestNum + 1 };
+        case 'ENTER_POST_DETAIL':
+            return action.post;
         default:
             return state;
     }
 };
 
-export default postItem;
+export default currentPost;

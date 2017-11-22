@@ -1,17 +1,15 @@
 import { combineReducers } from 'redux';
 import { regions, genders, identities, costOptions, tags } from '../components/App/reducer';
 import filter from '../components/Filter/reducer';
-import { Region, Post, User, UserBriefInfo } from './models';
+import currentUser from '../components/SignIn/reducer';
+import currentPost from '../components/PostDetail/reducer';
+import { Region, Post, User, UserBriefInfo, Filter } from './models';
 
 export type Store = {
     currentUser: User,  // 当前登录的用户
-    watchingUser: UserBriefInfo  // 正在查看的其他用户 
-    filter: {
-        regionCode: number,
-        costOption: string,
-        identity: string,
-        gender: string
-    },
+    watchingUser: UserBriefInfo,  // 正在查看的其他用户 
+    currentPost: Post,  // 当前处于查看详情状态下的帖子
+    filter: Filter,
     recommendedThemes: {
         title: string,
         coverUrl: string,
@@ -22,7 +20,6 @@ export type Store = {
         coverUrl: string,
         albumId: number
     }[],
-    posts: Post[],
     costOptions: string[],
     regions: Region[],  // 所有地区
     identities: string[],
@@ -31,5 +28,5 @@ export type Store = {
 };
 
 export default combineReducers({
-    filter, regions, costOptions, identities, genders, tags
+    filter, regions, costOptions, identities, genders, tags, currentUser, currentPost
 });

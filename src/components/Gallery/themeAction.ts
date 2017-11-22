@@ -1,5 +1,5 @@
-import { requestRecommendedThemes } from '../netAccess/themes';
-import { Store } from '../mainReducer';
+import { requestRecommendedThemes } from '../../netAccess/themes';
+import { Store } from '../../global/mainReducer';
 
 export type AsyncFetchAction = {
     type: string,

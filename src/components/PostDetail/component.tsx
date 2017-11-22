@@ -1,22 +1,23 @@
 import * as React from 'react';
+import { ChangeEvent } from 'react';
+// import { Link } from 'react-router-dom';
 import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 import Dialog from '../Models/Dialog';
 import { addNewRequest, checkHasRequested } from '../../netAccess/request';
-import { ChangeEvent } from 'react';
+import { closePost } from '../../netAccess/posts';
 
 export type DispatchProps = {
-    handleClosePost: (postId: number) => void,
-    handleAddNewRequest: (userId: number, postId: number, message: string) => void
+    setCurrentPostClosed: () => void,
+    addRequestOnCurrentPost: () => void
 };
 
 export type StateProps = {
-    currentUserId: number
+    currentUserId: number,
+    post: Post
 };
 
-export type OwnProps = Post;
-
-type PostDetailComponentProps = DispatchProps & StateProps & OwnProps;
+type PostDetailComponentProps = StateProps & DispatchProps;
 
 export class PostDetailComponent extends React.Component<PostDetailComponentProps, {
     showDialog: boolean,
@@ -31,55 +32,60 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             hasRequested: false,
             message: ''
         };
-        this.handleRequestConfirm = this.handleRequestConfirm.bind(this);
-        this.handleRequestCancel = this.handleRequestCancel.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.showRequestDialog = this.showRequestDialog.bind(this);
     }
 
     componentDidMount() {
-        const { postId, currentUserId } = this.props;
+        const { currentUserId } = this.props;
+        const { postId } = this.props.post;
         checkHasRequested(currentUserId, postId).then(hasRequested => {
             this.setState({ hasRequested });
         });
     }
 
-    showRequestDialog() {
+    showRequestDialog = () => {
         this.setState({ showDialog: true });
     }
 
-    handleRequestConfirm() {
-        let { message } = this.state;
-        let { currentUserId, postId } = this.props;
+    handleRequestConfirm = () => {
+        const { message } = this.state;
+        const { currentUserId, addRequestOnCurrentPost } = this.props;
+        const { postId } = this.props.post;
         this.setState({
             showDialog: false,
             message: ''
         });
         addNewRequest(currentUserId, postId, message).then(() => {
             this.setState({ hasRequested: true });
+            addRequestOnCurrentPost();
         });
     }
 
-    handleRequestCancel() {
+    handleRequestCancel = () => {
         this.setState({
             showDialog: false,
             message: ''
         });
     }
 
-    handleChange(event: ChangeEvent<HTMLInputElement>) {
+    handleClosePost = () => {
+        const { setCurrentPostClosed } = this.props;
+        const { postId } = this.props.post;
+        closePost(postId).then(() => setCurrentPostClosed());
+    }
+
+    handleMessageChange = (event: ChangeEvent<HTMLInputElement>) => {
         this.setState({ message: event.target.value });
         event.preventDefault();
     }
 
     render() {
-
+        const { currentUserId } = this.props;
         const {
-            content, cost, costOption, handleAddNewRequest, handleClosePost, isClosed,
+            content, cost, costOption, isClosed,
             launchTime, ownerAvatarUrl, ownerGender, ownerId, ownerIdentity, ownerName,
-            photoUrls, postId, requestNum, requiredRegionCode, requiredRegionName, tags,
-            themeCoverUrl, themeId, themeName, currentUserId
-        } = this.props;
+            requestNum, requiredRegionName, tags,
+            themeCoverUrl, themeName,
+        } = this.props.post;
 
         const { message, showDialog, hasRequested } = this.state;
 
@@ -89,7 +95,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             operations = (
                 <div>
                     {lessThan5Min ? <button>编辑</button> : null}
-                    {isClosed ? null : <button>关闭帖子</button>}
+                    {isClosed ? null : <button onClick={this.handleClosePost}>关闭帖子</button>}
                 </div>
             );
         } else {
@@ -101,6 +107,11 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         return (
             <div>
                 <section>
+                    <div>
+                        <img src={themeCoverUrl} alt="主题封面" />
+                        <span>摄影主题</span>
+                        <title>{themeName}</title>
+                    </div>
                     <UserBrief
                         avatarUrl={ownerAvatarUrl}
                         gender={ownerGender}
@@ -140,7 +151,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                             <input
                                 type="text"
                                 value={message}
-                                onChange={this.handleChange}
+                                onChange={this.handleMessageChange}
                                 placeholder="例如拍摄时间、地点、要求等"
                             />
                         </label>

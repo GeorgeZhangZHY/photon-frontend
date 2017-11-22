@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { Route } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import Filter from '../Filter/Filter';
-// import Gallery from '../Gallery/Gallery';
-// import PostFeed from '../PostFeed/PostFeed';
+import LatestPostFeed from '../LatestPostFeed/LatestPostFeed';
+import PostDetail from '../PostDetail/PostDetail';
 
 import './App.css';
 
@@ -28,10 +29,11 @@ export class AppComponent extends React.Component<AppComponentProps> {
     render() {
         return [
             <NavBar key="0" />,
-            <Filter key="1" />,
+            <Route key="1" exact path="/" component={Filter} />,
             // <Gallery key="2" />,
             // <Gallery key="3" />,
-            // <PostFeed key="4" />
+            <Route key="4" exact path="/" component={LatestPostFeed} />,
+            <Route key="5" path="/post/:postId" component={PostDetail} />
         ];
     }
 }

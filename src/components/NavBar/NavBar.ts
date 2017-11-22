@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { Store } from '../mainReducer';
-import NavBarComponent from './component';
+import { Store } from '../../global/mainReducer';
+import { NavBarComponent, StateProps } from './component';
 
-const mapStateToProps = (state: Store) => ({
-    isLoggedIn: state.user === null
+const mapStateToProps = (state: Store): StateProps => ({
+    isLoggedIn: !!state.currentUser.userId
 });
 
-const NavBar = connect(mapStateToProps)(NavBarComponent);
+const NavBar = connect<StateProps>(mapStateToProps)(NavBarComponent);
 
 export default NavBar;

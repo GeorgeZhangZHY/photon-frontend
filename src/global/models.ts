@@ -147,3 +147,10 @@ export type Region = {
     regionCode: number,
     regionName: string
 };
+
+export type Filter = {
+    regionCode: number,
+    costOption: string,
+    identity: string,
+    gender: string
+};

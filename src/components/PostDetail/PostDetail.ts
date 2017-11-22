@@ -1,11 +1,18 @@
 import { connect, Dispatch } from 'react-redux';
 import { Store } from '../../global/mainReducer';
-import { StateProps, DispatchProps } from './component';
+import { StateProps, DispatchProps, PostDetailComponent } from './component';
+import { addNewRequest, closePost } from './actions';
 
 const mapStateToProps = (state: Store): StateProps => ({
-    currentUserId: state.currentUser.userId
+    currentUserId: state.currentUser.userId,
+    post: state.currentPost
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => ({
-    handleAddNewRequest:
+    addRequestOnCurrentPost: () => dispatch(addNewRequest()),
+    setCurrentPostClosed: () => dispatch(closePost())
 });
+
+const PostDetail = connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(PostDetailComponent);
+
+export default PostDetail;

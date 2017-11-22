@@ -1,5 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import { Store } from '../mainReducer';
+import { Store } from '../../global/mainReducer';
 import { GalleryComponent, GalleryComponentProps } from './component';
 
 const mapStateToProps = (state: Store): Partial<GalleryComponentProps> => ({
