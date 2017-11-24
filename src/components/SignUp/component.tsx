@@ -87,7 +87,7 @@ export class SignUpComponent extends React.Component<SignUpComponentProps, {
                         <option value="" disabled selected hidden>身份</option>
                         {identities.map(i => <option key={i} value={i}>{i}</option>)}
                     </select>
-                    <input type="submit" value="Submit" disabled={isUserNameUsed} />
+                    <input type="submit" value="提交" disabled={isUserNameUsed} />
                 </form>
             </div>
         );
