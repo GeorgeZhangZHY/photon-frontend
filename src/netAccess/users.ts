@@ -14,4 +14,4 @@ export const login = (userName: string, password: string) => postData(
     '/login', {
         userName,
         password
-    }).then(response => <User>response.data);
+}).then(response => <User>response.data);

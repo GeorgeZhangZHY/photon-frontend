@@ -1,6 +1,5 @@
-import axios from 'axios';
-import rootUrl from './const';
+import { getData } from './utils';
 
 export const requestRecommendedThemes = () => (
-    axios.get(rootUrl + '/recommendedThemes').then(value => value.data)
+    getData('/recommendedThemes')
 );

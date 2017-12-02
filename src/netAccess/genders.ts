@@ -1,5 +1,5 @@
 import { getData } from './utils';
 
 export const requestGenders = () => (
-    getData('/genders').then(values => (<any[]>values).map(value => <string>value.gender))
+    getData<{ gender: string }[]>('/genders').then(values => values.map(value => value.gender))
 );

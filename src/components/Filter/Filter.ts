@@ -4,7 +4,7 @@ import { FilterComponent, FilterComponentProps } from './component';
 import { setFilter } from './actions';
 
 const getDisplayRegions = (state: Store) => {
-    let displayRegions = state.regions.filter(region => region.regionCode.toString().endsWith('0000'));   // 省级区域
+    let displayRegions = [{ regionCode: 0, regionName: '全部' }, ...state.provinces]; // 省级区域
     const selectedRegionCode = state.filter.regionCode;
     if (!selectedRegionCode.toString().endsWith('0000')) {
         // 追加显示用户选择的非省级地区
@@ -18,9 +18,9 @@ const getDisplayRegions = (state: Store) => {
 
 const mapStateToProps = (state: Store): Partial<FilterComponentProps> => ({
     displayRegions: getDisplayRegions(state),
-    costOptions: state.costOptions,
-    identities: state.identities,
-    genders: state.genders,
+    costOptions: ['全部', ...state.costOptions],
+    identities: ['全部', ...state.identities],
+    genders: ['全部', ...state.genders],
     filter: state.filter
 });
 

@@ -1,5 +1,5 @@
 import { getData } from './utils';
 
 export const requestTags = () => (
-    getData('/tags').then(values => (<any[]>values).map(value => <string>value.tag))
+    getData<{ tag: string }[]>('/tags').then(values => values.map(value => value.tag))
 );

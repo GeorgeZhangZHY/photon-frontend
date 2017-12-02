@@ -4,6 +4,8 @@ import NavBar from '../NavBar/NavBar';
 import Filter from '../Filter/Filter';
 import LatestPostFeed from '../LatestPostFeed/LatestPostFeed';
 import PostDetail from '../PostDetail/PostDetail';
+import ModifyPost from '../ModifyPost/ModifyPost';
+import AddPost from '../AddPost/AddPost';
 
 import './App.css';
 
@@ -33,7 +35,9 @@ export class AppComponent extends React.Component<AppComponentProps> {
             // <Gallery key="2" />,
             // <Gallery key="3" />,
             <Route key="4" exact path="/" component={LatestPostFeed} />,
-            <Route key="5" path="/post/:postId" component={PostDetail} />
+            <Route key="5" path="/post/:postId" component={PostDetail} />,
+            <Route key="6" path="/modifyPost" component={ModifyPost} />,
+            <Route key="7" path="/addPost" component={AddPost} />
         ];
     }
 }

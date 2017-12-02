@@ -22,6 +22,7 @@ export type Store = {
     }[],
     costOptions: string[],
     regions: Region[],  // 所有地区
+    provinces: Region[],
     identities: string[],
     genders: string[],
     tags: string[]

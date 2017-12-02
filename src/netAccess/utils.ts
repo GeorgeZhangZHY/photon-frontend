@@ -1,5 +1,6 @@
 import axios from 'axios';
-import rootUrl from './const';
+
+const rootUrl = 'http://localhost:8080';
 
 export function getData<T>(relativeUrl: string, params?: {}) {
     return axios.get(rootUrl + relativeUrl, {

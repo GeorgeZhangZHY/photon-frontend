@@ -1,5 +1,5 @@
 import { getData } from './utils';
 
 export const requestIdentities = () => (
-    getData('/identities').then(values => (<any[]>values).map(value => <string>value.identity))
+    getData<{ identity: string }[]>('/identities').then(values => values.map(value => value.identity))
 );
