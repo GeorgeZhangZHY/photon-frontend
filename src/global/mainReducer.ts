@@ -3,12 +3,12 @@ import { regions, genders, identities, costOptions, tags } from '../components/A
 import filter from '../components/Filter/reducer';
 import currentUser from '../components/SignIn/reducer';
 import currentPost from '../components/PostDetail/reducer';
-import { Region, Post, User, UserBriefInfo, Filter } from './models';
+import { Region, Post, User, Filter, Album } from './models';
 
 export type Store = {
     currentUser: User,  // 当前登录的用户
-    watchingUser: UserBriefInfo,  // 正在查看的其他用户 
     currentPost: Post,  // 当前处于查看详情状态下的帖子
+    currentAlbum: Album, // 当前处于查看详情状态下的相册
     filter: Filter,
     recommendedThemes: {
         title: string,

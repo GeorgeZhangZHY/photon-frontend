@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { UserBriefInfo } from '../../global/models';
-import { cancelFollow, addNewFollow, checkFollow } from '../../netAccess/follow';
+import { cancelFollow, addNewFollow, checkFollow } from '../../netAccess/follows';
 import { AxiosPromise } from 'axios';
 import { Link } from 'react-router-dom';
 

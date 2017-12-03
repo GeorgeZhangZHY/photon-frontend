@@ -1,3 +1,5 @@
+import { type } from "os";
+
 
 export type NewPost = {
     ownerId: number,
@@ -91,9 +93,11 @@ export type NewParticipate = {
     userId: number
 };
 
+export type Status = 'pending' | 'agreed' | 'rejected' | 'succeeded' | 'failed';
+
 export type ParticipateNotification = NewParticipate & UserBriefInfo & {
     albumName: string,
-    status: string,
+    status: Status,
     createTime: string
 };
 
