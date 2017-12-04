@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Post, Region } from '../../global/models';
+import { Post, Region, RouterProps } from '../../global/models';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import { ChangeEvent } from 'react';
 import { withRouter } from 'react-router-dom';
-import { History } from 'history';
 import { AxiosPromise } from 'axios';
 
 export type StateProps = {
@@ -12,10 +11,6 @@ export type StateProps = {
     allRegions: Region[],  // 所有地区
     allTags: string[],
     provinces: Region[]
-};
-
-type RouterProps = {
-    history?: History;
 };
 
 export type OwnProps = {
@@ -34,8 +29,6 @@ class PostEdit extends React.Component<PostEditComponentProps, {
     content: string,
     tags: string[]
 }> {
-
-    form: HTMLFormElement;
 
     constructor(props: PostEditComponentProps) {
         super(props);
@@ -116,7 +109,6 @@ class PostEdit extends React.Component<PostEditComponentProps, {
 
     render() {
         const { allCostOptions, allRegions, allTags, title, provinces } = this.props;
-        const { themeName } = this.props.post;
         const { requiredRegionCode, photoUrls, selectedProvinceCode,
             cost, costOption, content, tags } = this.state;
 
@@ -129,8 +121,8 @@ class PostEdit extends React.Component<PostEditComponentProps, {
 
         return (
             <section>
-                <header>{themeName ? themeName + ' - ' + title : title}</header>
-                <form ref={f => this.form = f!} onSubmit={this.handleSubmit}>
+                <header>{title}</header>
+                <form onSubmit={this.handleSubmit}>
                     <div>
                         <label data-required>面向地区：</label>
                         <select name="province" required onChange={this.handleProvinceChange}>
@@ -163,6 +155,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                                     name="costOption"
                                     defaultChecked={option === costOption}
                                     onChange={this.handleCostOptionChange}
+                                    required
                                 />
                                 {option}
                             </label>)}
@@ -174,6 +167,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                                 value={cost}
                                 min={1}
                                 onChange={this.handleCostChange}
+                                required
                             />
                             : null}
                     </div>
@@ -185,6 +179,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                             placeholder="自我介绍，对应征者的要求等（勿留联系方式，发布后，有人应征即可看到对方的联系方式）"
                             value={content}
                             onChange={this.handleContentChange}
+                            required
                         />
                     </div>
                     <div>

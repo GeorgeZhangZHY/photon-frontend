@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Album, UserBriefInfo, Status, Like, Comment } from '../../global/models';
+import { Album, UserBriefInfo, Status, Like, Comment as CommentType } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 import { requestUserBriefInfo } from '../../netAccess/users';
 import { requestParticipants, checkParticipateRequest, addNewParticipateRequest } from '../../netAccess/participates';
@@ -7,6 +7,7 @@ import { checkLike, addNewLike, cancelLike, requestLikesOfAlbum } from '../../ne
 import { AxiosPromise } from 'axios';
 import { Link } from 'react-router-dom';
 import { requestCommentsOfAlbum } from '../../netAccess/comments';
+import { Comment } from '../Comment/Comment';
 
 export type StateProps = {
     album: Album,
@@ -26,7 +27,7 @@ type State = {
     status: Status | '',
     hasLiked: boolean,
     likes: Like[],
-    comments: Comment[]
+    comments: CommentType[]
 };
 
 const reminder: {[K in Status]: string} = {
@@ -149,7 +150,7 @@ export class AlbumDetailComponent extends React.Component<Props, State> {
                 </section>
                 <section>
                     <header>{comments.length}人评价</header>
-                    {comments.map(comment=><UserBrief />)}
+                    {comments.map(comment => <Comment key={comment.commentId} {...comment} />)}
                 </section>
             </div>
         );

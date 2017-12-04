@@ -49,17 +49,19 @@ export class UserBriefComponent extends React.Component<UserBriefComponentProps,
 
     render() {
         const { avatarUrl, userName, gender, identity, regionName, userId, currentUserId } = this.props;
-
+        const isSelf = userId === currentUserId;
         return (
             <div>
-                <Link to={userId === currentUserId ? '/user/me' : '/user/' + userId}>
+                <Link to={isSelf ? '/user/me' : '/user/' + userId}>
                     <img src={avatarUrl} alt="头像" />
                     <span>{userName}</span>
                 </Link>
                 <img src={genderLogos[gender]} alt="性别" />
                 <span>{identity}</span>
                 {regionName && <span>{regionName}</span>}
-                <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
+                {isSelf ?
+                    <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
+                    : null}
             </div>
         );
     }

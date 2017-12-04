@@ -10,16 +10,7 @@ export type Store = {
     currentPost: Post,  // 当前处于查看详情状态下的帖子
     currentAlbum: Album, // 当前处于查看详情状态下的相册
     filter: Filter,
-    recommendedThemes: {
-        title: string,
-        coverUrl: string,
-        themeId: number
-    }[],
-    newAlbums: {
-        title: string,
-        coverUrl: string,
-        albumId: number
-    }[],
+    newAlbums: Album[],
     costOptions: string[],
     regions: Region[],  // 所有地区
     provinces: Region[],

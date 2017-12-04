@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 import Dialog from '../Models/Dialog';
-import { addNewRequest, checkHasRequested } from '../../netAccess/request';
+import { addNewRequest, checkHasRequested } from '../../netAccess/requests';
 import { closePost } from '../../netAccess/posts';
 
 export type DispatchProps = {
@@ -83,8 +83,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         const {
             content, cost, costOption, isClosed,
             launchTime, ownerAvatarUrl, ownerGender, ownerId, ownerIdentity, ownerName,
-            requestNum, requiredRegionName, tags,
-            themeCoverUrl, themeName,
+            requestNum, requiredRegionName, tags
         } = this.props.post;
 
         const { message, showDialog, hasRequested } = this.state;
@@ -107,11 +106,6 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         return (
             <div>
                 <section>
-                    <div>
-                        <img src={themeCoverUrl} alt="主题封面" />
-                        <span>摄影主题</span>
-                        <title>{themeName}</title>
-                    </div>
                     <UserBrief
                         avatarUrl={ownerAvatarUrl}
                         gender={ownerGender}

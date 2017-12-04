@@ -1,5 +1,4 @@
-import { type } from "os";
-
+import { History } from 'history';
 
 export type NewPost = {
     ownerId: number,
@@ -8,8 +7,7 @@ export type NewPost = {
     cost: number,
     content: string,
     tags: string[],
-    photoUrls: string[],   // 对于浏览器端刚上传的图片，为base64编码的dataUrl；对于从服务器发送的图片，则为路径
-    themeId: number
+    photoUrls: string[]   // 对于浏览器端刚上传的图片，为base64编码的dataUrl；对于从服务器发送的图片，则为路径
 };
 
 export type Post = {
@@ -20,14 +18,11 @@ export type Post = {
     ownerAvatarUrl: string,
     launchTime: string,
     isClosed: boolean,
-    themeName: string,
     requiredRegionName: string,
-    themeCoverUrl: string,
     requestNum: number  // 收到的约拍请求数
 } & NewPost;
 
 export type NewAlbum = {
-    themeId?: number,
     albumName: string,
     userId: number,
     shotTime: string,
@@ -42,8 +37,6 @@ export type NewAlbum = {
 export type Album = {
     albumId: number,
     createTime: string,
-    themeName?: string,
-    themeCoverUrl?: string
 } & NewAlbum;
 
 export type NewComment = {
@@ -157,4 +150,8 @@ export type Filter = {
     costOption: string,
     identity: string,
     gender: string
+};
+
+export type RouterProps = {
+    history?: History;
 };
