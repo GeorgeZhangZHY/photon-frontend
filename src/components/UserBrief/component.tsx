@@ -4,9 +4,14 @@ import { cancelFollow, addNewFollow, checkFollow } from '../../netAccess/follows
 import { AxiosPromise } from 'axios';
 import { Link } from 'react-router-dom';
 
-const genderLogos = {
+export const genderLogos = {
     '男': require('./male.svg'),
     '女': require('./female.svg')
+};
+
+export const handleFollow = {
+    true: cancelFollow,
+    false: addNewFollow
 };
 
 export type StateProps = {
@@ -35,13 +40,8 @@ export class UserBriefComponent extends React.Component<UserBriefComponentProps,
     }
 
     toggleFollow() {
-        const handle = {
-            true: cancelFollow,
-            false: addNewFollow
-        };
         const { userId, currentUserId } = this.props;
-
-        (handle['' + this.state.hasFollowed](userId, currentUserId) as AxiosPromise)
+        (handleFollow['' + this.state.hasFollowed](userId, currentUserId) as AxiosPromise)
             .then(() => this.setState(prevState => ({
                 hasFollowed: !prevState.hasFollowed
             })));

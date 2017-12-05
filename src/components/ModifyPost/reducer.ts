@@ -1,6 +1,5 @@
 import { Store } from '../../global/mainReducer';
-import { PostDetailAction } from './actions';
-import { PostListAction } from '../PostList/actions';
+import { ModifyPostAction } from './actions';
 
 const currentPost = (
     state: Store['currentPost'] = {
@@ -10,14 +9,10 @@ const currentPost = (
         requestNum: 0, requiredRegionCode: 0, requiredRegionName: '',
         tags: []
     },
-    action: PostDetailAction | PostListAction
+    action: ModifyPostAction
 ): Store['currentPost'] => {
     switch (action.type) {
-        case 'CLOSE_POST':
-            return { ...state, isClosed: true };
-        case 'ADD_NEW_REQUEST':
-            return { ...state, requestNum: state.requestNum + 1 };
-        case 'ENTER_POST_DETAIL':
+        case 'MODIFY_POST':
             return action.post;
         default:
             return state;

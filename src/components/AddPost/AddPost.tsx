@@ -14,14 +14,13 @@ export default class AddPost extends React.Component {
             photoUrls: post.photoUrls,
             requiredRegionCode: post.requiredRegionCode,
             tags: post.tags,
-            themeId: post.themeId
         };
         return addNewPost(newPost);
     }
 
     render() {
         return (
-            <PostEdit title="发布约拍信息" submit={this.handleSubmit} />
+            <PostEdit title="发布约拍信息" onSubmit={this.handleSubmit} />
         );
     }
 }
