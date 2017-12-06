@@ -18,7 +18,9 @@ export type StateProps = {
     currentUserId: number
 };
 
-export type OwnProps = UserBriefInfo;
+export type OwnProps = UserBriefInfo & {
+    hideFollow?: boolean
+};
 
 type UserBriefComponentProps = StateProps & OwnProps;
 
@@ -48,7 +50,7 @@ export class UserBriefComponent extends React.Component<UserBriefComponentProps,
     }
 
     render() {
-        const { avatarUrl, userName, gender, identity, regionName, userId, currentUserId } = this.props;
+        const { avatarUrl, userName, gender, identity, regionName, userId, currentUserId, hideFollow } = this.props;
         const isSelf = userId === currentUserId;
         return (
             <div>
@@ -59,9 +61,10 @@ export class UserBriefComponent extends React.Component<UserBriefComponentProps,
                 <img src={genderLogos[gender]} alt="性别" />
                 <span>{identity}</span>
                 {regionName && <span>{regionName}</span>}
-                {isSelf ?
-                    <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
-                    : null}
+                {(isSelf || hideFollow) ?
+                    null
+                    : <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
+                }
             </div>
         );
     }

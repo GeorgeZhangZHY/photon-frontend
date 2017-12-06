@@ -2,37 +2,45 @@ import * as React from 'react';
 import { User, UserBriefInfo } from '../../global/models';
 import { genderLogos, handleFollow } from '../UserBrief/component';
 import { AxiosPromise } from 'axios';
+import { match } from 'react-router-dom';
+import { checkFollow } from '../../netAccess/follows';
 
 export type StateProps = {
-    user: User
+    currentUser: User,
+    watchingUser: UserBriefInfo
 };
 
-type Props = {
+type UserSpaceProps = StateProps & {
+    match: match<{ userId: number }>
+};
 
-}
-
-export class UserSpaceComponent extends React.Component<> {
+export class UserSpaceComponent extends React.Component<UserSpaceProps> {
 
     render() {
-
+        const { currentUser, watchingUser } = this.props;
+        const isSelf = currentUser.userId === watchingUser.userId;
+        const user: User | UserBriefInfo = isSelf ? currentUser : watchingUser;
         return (
-            
-        )
+            <div>
+                <UserIntro
+                    isSelf={isSelf}
+                    currentUserId={currentUser.userId}
+                    user={user}
+                />
+                
+            </div>
+        );
     }
 }
 
 type UserIntroProps = {
     currentUserId: number
-} & ({
-    isSelf: true,
-    user: User
-} | {
-        isSelf: false,
-        user: UserBriefInfo
-    });
+    isSelf: boolean
+    user: User | UserBriefInfo // isSelf时为User
+};
 
 type UserIntroState = {
-    showContact: boolean,
+    showContact: boolean
     hasFollowed: boolean
 };
 
@@ -46,6 +54,13 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
         };
     }
 
+    componentDidMount() {
+        const { user, currentUserId } = this.props;
+        checkFollow(user.userId, currentUserId).then(hasFollowed => {
+            this.setState({ hasFollowed });
+        });
+    }
+
     toggleFollow = () => {
         const { user, currentUserId } = this.props;
         (handleFollow['' + this.state.hasFollowed](user.userId, currentUserId) as AxiosPromise)
@@ -54,12 +69,18 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
             })));
     }
 
+    toggleContact = () => {
+        this.setState(prevState => ({
+            showContact: !prevState.showContact
+        }));
+    }
+
     render() {
         const { avatarUrl, gender, identity, regionName, userName } = this.props.user;
         const { showContact } = this.state;
         let contact = null;
         if (this.props.isSelf) {
-            const { phoneNum, qqNum, wechatId, wechatQRCodeUrl } = this.props.user;
+            const { phoneNum, qqNum, wechatId, wechatQRCodeUrl } = this.props.user as User;
             contact = (
                 <div>
                     <span>手机号：{phoneNum ? phoneNum : '无'}</span>
@@ -81,7 +102,7 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
                     {showContact ? contact : null}
                     {this.props.isSelf ?
                         <div className="control-pane">
-                            <button onClick={}>查看联系方式</button>
+                            <button onClick={this.toggleContact}>查看联系方式</button>
                             <button>编辑个人资料</button>
                         </div>
                         : <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>

@@ -5,7 +5,7 @@ import { PostListAction } from '../PostList/actions';
 const currentPost = (
     state: Store['currentPost'] = {
         postId: 0, content: '', cost: 0, costOption: '', isClosed: false,
-        launchTime: '', ownerAvatarUrl: '', ownerGender: '',
+        createTime: '', ownerAvatarUrl: '', ownerGender: '',
         ownerId: 0, ownerIdentity: '', ownerName: '', photoUrls: [],
         requestNum: 0, requiredRegionCode: 0, requiredRegionName: '',
         tags: []

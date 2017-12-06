@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
-import Model from './Model';
+import Modal from './Modal';
 
 type DialogProps = {
     title: string,
@@ -8,7 +8,7 @@ type DialogProps = {
     onCancel: () => void
 };
 
-export default class Dialog extends Model<DialogProps> {
+export default class Dialog extends Modal<DialogProps> {
 
     constructor(props: DialogProps) {
         super(props);

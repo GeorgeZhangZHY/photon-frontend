@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 
-export default class Model<P = {}> extends React.Component<P> {
+export default class Modal<P = {}> extends React.Component<P> {
 
     node: HTMLDivElement;
 
@@ -14,7 +14,7 @@ export default class Model<P = {}> extends React.Component<P> {
 
     render() {
         return createPortal(
-            <div className="model">
+            <div className="modal">
                 {this.props.children}
             </div>,
             this.node

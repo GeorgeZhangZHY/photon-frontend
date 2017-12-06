@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 // import { Link } from 'react-router-dom';
 import { Post } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
-import Dialog from '../Models/Dialog';
+import Dialog from '../Modals/Dialog';
 import { addNewRequest, checkHasRequested } from '../../netAccess/requests';
 import { closePost } from '../../netAccess/posts';
 
@@ -82,7 +82,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         const { currentUserId } = this.props;
         const {
             content, cost, costOption, isClosed,
-            launchTime, ownerAvatarUrl, ownerGender, ownerId, ownerIdentity, ownerName,
+            createTime, ownerAvatarUrl, ownerGender, ownerId, ownerIdentity, ownerName,
             requestNum, requiredRegionName, tags
         } = this.props.post;
 
@@ -90,7 +90,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
 
         let operations;
         if (ownerId === currentUserId) {
-            const lessThan5Min = (new Date().getTime() - new Date(launchTime).getTime()) / 1000 / 60 < 5;
+            const lessThan5Min = (new Date().getTime() - new Date(createTime).getTime()) / 1000 / 60 < 5;
             operations = (
                 <div>
                     {lessThan5Min ? <button>编辑</button> : null}
@@ -124,7 +124,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                         <tr>
                             <td>{requiredRegionName}</td>
                             <td>{costOption + costOption === '需要收费' || costOption === '愿意付费' ? ` ${cost}元` : ''}</td>
-                            <td>{launchTime}</td>
+                            <td>{createTime}</td>
                         </tr>
                     </table>
                     <p>{content}</p>

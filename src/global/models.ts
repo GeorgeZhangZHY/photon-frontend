@@ -16,11 +16,19 @@ export type Post = {
     ownerIdentity: string,
     ownerGender: string,
     ownerAvatarUrl: string,
-    launchTime: string,
+    createTime: string,
     isClosed: boolean,
     requiredRegionName: string,
     requestNum: number  // 收到的约拍请求数
 } & NewPost;
+
+export type Condition = {  // 筛选帖子的条件
+    ownerId: number,
+    costOption: string,
+    ownerGender: string,
+    requiredRegionCode: number,
+    ownerIdentity: string
+};
 
 export type NewAlbum = {
     albumName: string,
@@ -38,6 +46,12 @@ export type Album = {
     albumId: number,
     createTime: string,
 } & NewAlbum;
+
+export type Activity = {
+    user: UserBriefInfo
+    type: 'album' | 'post'
+    payload: Album | Post
+};
 
 export type NewComment = {
     userId: number,
