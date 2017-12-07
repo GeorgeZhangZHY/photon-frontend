@@ -1,45 +1,50 @@
 import * as React from 'react';
-import { Post, Filter } from '../../global/models';
+import { Post, Filter, Condition } from '../../global/models';
 import PostList from '../PostList/PostList';
 import { requestLatestPosts } from '../../netAccess/posts';
+import InfiniteScroll from '../InfiniteScroll/InfiniteScroll';
 
 export type StateProps = {
     filter: Filter
 };
 
-export type LatestPostFeedComponentProps = StateProps;
+type Props = StateProps;
 
-export class LatestPostFeedComponent extends React.Component<LatestPostFeedComponentProps, {
-    currentPageNum: number,
-    pageSize: number,
+type State = {
     posts: Post[]
-}> {
+};
 
-    constructor(props: LatestPostFeedComponentProps) {
-        super(props);
-        this.state = {
-            currentPageNum: -1,
-            pageSize: 10,
-            posts: []
-        };
+export class LatestPostFeedComponent extends React.Component<Props, State> {
+
+    state = {
+        posts: []
+    };
+
+    loadMorePosts = (pageNum: number, pageSize: number) => {
+        let condition: any = undefined;
+        const { filter } = this.props;
+        Object.getOwnPropertyNames(filter).forEach(key => {
+            const value = filter[key];
+            if (value !== 0 && value !== '全部') {
+                condition[key] = value;
+            }
+        });
+        return requestLatestPosts(pageNum, pageSize, condition as Condition);
     }
 
-    loadMorePosts = () => {
-        const { currentPageNum, pageSize } = this.state;
-        requestLatestPosts(currentPageNum + 1, pageSize)
-            .then(posts => this.setState(prevState => ({
-                posts: prevState.posts.concat(posts)
-            })));
-    }
-
-    componentDidMount() {
-        this.loadMorePosts();
-        // window.onscroll
+    handleNewPosts = (newPosts: Post[]) => {
+        this.setState(prevState => ({ posts: prevState.posts.concat(newPosts) }));
     }
 
     render() {
         return (
-            <PostList posts={this.state.posts} />
+            <InfiniteScroll
+                loadData={this.loadMorePosts}
+                pageSize={10}
+                onDataLoaded={this.handleNewPosts}
+            >
+                <PostList posts={this.state.posts} />
+            </InfiniteScroll>
         );
     }
 }

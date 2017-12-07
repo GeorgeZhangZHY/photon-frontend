@@ -22,13 +22,7 @@ export type Post = {
     requestNum: number  // 收到的约拍请求数
 } & NewPost;
 
-export type Condition = {  // 筛选帖子的条件
-    ownerId: number,
-    costOption: string,
-    ownerGender: string,
-    requiredRegionCode: number,
-    ownerIdentity: string
-};
+export type Condition = Partial<Filter>;
 
 export type NewAlbum = {
     albumName: string,

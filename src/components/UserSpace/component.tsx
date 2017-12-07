@@ -2,8 +2,13 @@ import * as React from 'react';
 import { User, UserBriefInfo } from '../../global/models';
 import { genderLogos, handleFollow } from '../UserBrief/component';
 import { AxiosPromise } from 'axios';
-import { match } from 'react-router-dom';
+import { match as Match, Link } from 'react-router-dom';
 import { checkFollow } from '../../netAccess/follows';
+import { Switch, Route } from 'react-router';
+import UserActivityFeed from '../ActivityFeed/UserActivityFeed';
+import UserPostFeed from '../UserPostFeed/UserPostFeed';
+import UserAlbumFeed from '../AlbumFeed/UserAlbumFeed';
+import LikedAlbumFeed from '../AlbumFeed/LikedAlbumFeed';
 
 export type StateProps = {
     currentUser: User,
@@ -11,13 +16,13 @@ export type StateProps = {
 };
 
 type UserSpaceProps = StateProps & {
-    match: match<{ userId: number }>
+    match: Match<{ userId: number }>
 };
 
 export class UserSpaceComponent extends React.Component<UserSpaceProps> {
 
     render() {
-        const { currentUser, watchingUser } = this.props;
+        const { currentUser, watchingUser, match } = this.props;
         const isSelf = currentUser.userId === watchingUser.userId;
         const user: User | UserBriefInfo = isSelf ? currentUser : watchingUser;
         return (
@@ -27,7 +32,38 @@ export class UserSpaceComponent extends React.Component<UserSpaceProps> {
                     currentUserId={currentUser.userId}
                     user={user}
                 />
-                
+                <section>
+                    <div className="control">
+                        <Link to={match.path + '/activity'}>动态</Link>
+                        <Link to={match.path + '/post'}>约拍</Link>
+                        <Link to={match.path + '/album'}>发布的相册</Link>
+                        <Link to={match.path + '/liked'}>喜欢的相册</Link>
+                        <Link to={match.path + '/follow'}>关注的人</Link>
+                    </div>
+                    <Switch>
+                        <Route
+                            path={match.path + '/activity'}
+                            render={() => <UserActivityFeed userId={watchingUser.userId} />}
+                        />
+                        <Route
+                            path={match.path + '/post'}
+                            render={() => <UserPostFeed userId={watchingUser.userId} />}
+                        />
+                        <Route
+                            path={match.path + '/album'}
+                            render={() => <UserAlbumFeed userId={watchingUser.userId} />}
+                        />
+                        <Route
+                            path={match.path + '/liked'}
+                            render={() => <LikedAlbumFeed userId={watchingUser.userId} />}
+                        />
+                        <Route
+                            path={match.path + '/follow'}
+                            render={() => <LikedAlbumFeed userId={watchingUser.userId} />}
+                        />
+                    </Switch>
+
+                </section>
             </div>
         );
     }
