@@ -1,4 +1,5 @@
 import { History } from 'history';
+import { match as Match } from 'react-router-dom';
 
 export type NewPost = {
     ownerId: number,
@@ -160,6 +161,7 @@ export type Filter = {
     gender: string
 };
 
-export type RouterProps = {
+export type RouteProps<M = {}> = {
     history?: History;
+    match?: Match<M>
 };

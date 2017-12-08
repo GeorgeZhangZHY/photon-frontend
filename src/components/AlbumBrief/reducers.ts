@@ -4,8 +4,7 @@ import { AlbumBriefAction } from './actions';
 export const currentAlbum = (
     state: Store['currentAlbum'] = {
         albumId: 0, albumName: '', coverOrdinal: 0, createTime: '', description: '',
-        photoUrls: [], shotDevice: '', shotLocation: '', shotTime: '', tags: [],
-        themeCoverUrl: '', themeId: 0, themeName: '', userId: 0
+        photoUrls: [], shotDevice: '', shotLocation: '', shotTime: '', tags: [], userId: 0
     },
     action: AlbumBriefAction
 ): Store['currentAlbum'] => {

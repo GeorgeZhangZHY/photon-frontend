@@ -8,17 +8,14 @@ import { AxiosPromise } from 'axios';
 import { Link } from 'react-router-dom';
 import { requestCommentsOfAlbum } from '../../netAccess/comments';
 import { Comment } from '../Comment/Comment';
+import PhotoList from '../PhotoList/PhotoList';
 
 export type StateProps = {
     album: Album,
     currentUserId: number
 };
 
-export type DispatchProps = {
-
-};
-
-type Props = StateProps & DispatchProps;
+type Props = StateProps;
 
 type State = {
     owner: UserBriefInfo,
@@ -98,7 +95,7 @@ export class AlbumDetailComponent extends React.Component<Props, State> {
 
         const { albumName, coverOrdinal, createTime,
             description, photoUrls, shotDevice, shotLocation,
-            shotTime, tags, /*themeCoverUrl, themeId, themeName,*/ userId } = album;
+            shotTime, tags, userId } = album;
 
         const albumCoverUrl = photoUrls[coverOrdinal];
         const isOwner = currentUserId === userId;
@@ -145,8 +142,7 @@ export class AlbumDetailComponent extends React.Component<Props, State> {
                 </section>
                 <section>
                     <header>{photoUrls.length}张照片</header>
-                    {photoUrls.map((url, index) =>
-                        <img key={index} src={url} onClick={} />)}
+                    <PhotoList photoUrls={photoUrls} />
                 </section>
                 <section>
                     <header>{comments.length}人评价</header>

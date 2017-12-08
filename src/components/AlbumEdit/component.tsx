@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Album, RouterProps } from '../../global/models';
+import { Album, RouteProps } from '../../global/models';
 import { MultiPicker } from '../MultiPicker/MultiPicker';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import { withRouter } from 'react-router-dom';
@@ -15,7 +15,7 @@ export type OwnProps = {
     onSubmit: (album: Album) => Promise<any>
 };
 
-type Props = StateProps & OwnProps & RouterProps;
+type Props = StateProps & OwnProps & RouteProps;
 type State = Album;
 
 class AlbumEdit extends React.Component<Props, State> {
@@ -42,7 +42,9 @@ class AlbumEdit extends React.Component<Props, State> {
 
     handleSubmit = () => {
         const { onSubmit, history } = this.props;
-        onSubmit(this.state).then(() => history!.goBack());
+        onSubmit(this.state).then(() => {
+            history!.goBack();
+        });
     }
 
     handleCancel = () => {

@@ -6,6 +6,7 @@ import UserBrief from '../UserBrief/UserBrief';
 import Dialog from '../Modals/Dialog';
 import { addNewRequest, checkHasRequested } from '../../netAccess/requests';
 import { closePost } from '../../netAccess/posts';
+import PhotoList from '../PhotoList/PhotoList';
 
 export type DispatchProps = {
     setCurrentPostClosed: () => void,
@@ -81,9 +82,8 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
     render() {
         const { currentUserId } = this.props;
         const {
-            content, cost, costOption, isClosed,
-            createTime, ownerAvatarUrl, ownerGender, ownerId, ownerIdentity, ownerName,
-            requestNum, requiredRegionName, tags
+            content, cost, costOption, isClosed, createTime, ownerAvatarUrl, ownerGender,
+            ownerId, ownerIdentity, ownerName, requestNum, requiredRegionName, tags, photoUrls
         } = this.props.post;
 
         const { message, showDialog, hasRequested } = this.state;
@@ -133,6 +133,9 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                     </ul>
                     {requestNum > 0 ? <span>收到约拍{requestNum}条</span> : null}
                     {operations}
+                </section>
+                <section>
+                    <PhotoList photoUrls={photoUrls} />
                 </section>
                 {showDialog ?
                     <Dialog

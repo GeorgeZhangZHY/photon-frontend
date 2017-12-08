@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
 
-export default class Modal<P = {}> extends React.Component<P> {
+export default class Modal extends React.Component {
 
     node: HTMLDivElement;
 
-    constructor(props: P) {
+    constructor(props: any) {
         super(props);
         const doc = window.document;
         this.node = doc.createElement('div');

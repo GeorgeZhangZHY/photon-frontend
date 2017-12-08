@@ -1,28 +1,28 @@
 import * as React from 'react';
-import { User, UserBriefInfo } from '../../global/models';
+import { User, UserBriefInfo, RouteProps } from '../../global/models';
 import { genderLogos, handleFollow } from '../UserBrief/component';
 import { AxiosPromise } from 'axios';
-import { match as Match, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { checkFollow } from '../../netAccess/follows';
 import { Switch, Route } from 'react-router';
 import UserActivityFeed from '../ActivityFeed/UserActivityFeed';
 import UserPostFeed from '../UserPostFeed/UserPostFeed';
 import UserAlbumFeed from '../AlbumFeed/UserAlbumFeed';
 import LikedAlbumFeed from '../AlbumFeed/LikedAlbumFeed';
+import FollowedUserFeed from '../FollowedUserFeed/FollowedUserFeed';
 
 export type StateProps = {
     currentUser: User,
     watchingUser: UserBriefInfo
 };
 
-type UserSpaceProps = StateProps & {
-    match: Match<{ userId: number }>
-};
+type UserSpaceProps = StateProps & RouteProps<{ userId: number }>;
 
 export class UserSpaceComponent extends React.Component<UserSpaceProps> {
 
     render() {
-        const { currentUser, watchingUser, match } = this.props;
+        let { currentUser, watchingUser, match } = this.props;
+        match = match!;
         const isSelf = currentUser.userId === watchingUser.userId;
         const user: User | UserBriefInfo = isSelf ? currentUser : watchingUser;
         return (
@@ -59,10 +59,9 @@ export class UserSpaceComponent extends React.Component<UserSpaceProps> {
                         />
                         <Route
                             path={match.path + '/follow'}
-                            render={() => <LikedAlbumFeed userId={watchingUser.userId} />}
+                            render={() => <FollowedUserFeed followerId={watchingUser.userId} />}
                         />
                     </Switch>
-
                 </section>
             </div>
         );
@@ -119,9 +118,9 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
             const { phoneNum, qqNum, wechatId, wechatQRCodeUrl } = this.props.user as User;
             contact = (
                 <div>
-                    <span>手机号：{phoneNum ? phoneNum : '无'}</span>
-                    <span>QQ号：{qqNum ? qqNum : '无'}</span>
-                    <span>微信号：{wechatId ? wechatId : '无'}</span>
+                    <span>手机号：{phoneNum || '无'}</span>
+                    <span>QQ号：{qqNum || '无'}</span>
+                    <span>微信号：{wechatId || '无'}</span>
                     <span>微信二维码：{wechatQRCodeUrl ? <img src={wechatQRCodeUrl} alt="微信二维码" /> : '无'}</span>
                 </div>
             );
@@ -132,17 +131,19 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
                 <div>
                     <img src={avatarUrl} alt="头像" className="user-avatar" />
                     <b>{userName}</b>
-                    <span>{regionName}</span>
-                    <span>{identity}</span>
-                    <img src={genderLogos[gender]} alt="性别" />
-                    {showContact ? contact : null}
-                    {this.props.isSelf ?
-                        <div className="control-pane">
-                            <button onClick={this.toggleContact}>查看联系方式</button>
-                            <button>编辑个人资料</button>
-                        </div>
-                        : <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
-                    }
+                    <div>
+                        <span>{regionName || '未设置所在地区'}</span>
+                        <span>{identity}</span>
+                        <img src={genderLogos[gender]} alt="性别" />
+                        {showContact ? contact : null}
+                        {this.props.isSelf ?
+                            <div className="control-pane">
+                                <button onClick={this.toggleContact}>查看联系方式</button>
+                                <button>编辑个人资料</button>
+                            </div>
+                            : <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
+                        }
+                    </div>
                 </div>
             </section>
         );

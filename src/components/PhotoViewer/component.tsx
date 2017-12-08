@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
-import { RouterProps } from '../../global/models';
+import { RouteProps } from '../../global/models';
 
-type OwnProps = {
+export type StateProps = {
     photoUrls: string[],
     beginIndex: number
 };
 
-type Props = OwnProps & RouterProps;
+type Props = StateProps & RouteProps;
 
 type State = {
     currentIndex: number,
     maxIndex: number
 };
 
-class PhotoViewer extends React.Component<Props, State> {
+export class PhotoViewerComponent extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -54,5 +53,3 @@ class PhotoViewer extends React.Component<Props, State> {
         );
     }
 }
-
-export default withRouter(PhotoViewer);
