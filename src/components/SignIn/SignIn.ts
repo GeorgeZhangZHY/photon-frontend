@@ -7,6 +7,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => ({
     setUserLoggedIn: (user: User) => dispatch(userLogin(user))
 });
 
-const SignIn = connect<never, DispatchProps, never>(undefined, mapDispatchToProps)(SignInComponent);
+const SignIn = connect<undefined, DispatchProps>(undefined, mapDispatchToProps)(SignInComponent);
 
 export default SignIn;

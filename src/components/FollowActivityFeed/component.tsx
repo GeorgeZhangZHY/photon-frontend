@@ -1,15 +1,17 @@
 import * as React from 'react';
-import ActivityFeed from './ActivityFeed';
+import ActivityFeed from '../ActivityFeed/ActivityFeed';
 import { requestFollowedActivities } from '../../netAccess/activities';
 
-type Props = {
-    userId: number
+export type StateProps = {
+    currentUserId: number
 };
 
-export default class FollowActivityFeed extends React.Component<Props> {
+type Props = StateProps;
+
+export  class FollowActivityFeedComponent extends React.Component<Props> {
 
     loadMoreUserActivity = (pageNum: number, pageSize: number) => {
-        return requestFollowedActivities(this.props.userId, pageNum, pageSize);
+        return requestFollowedActivities(this.props.currentUserId, pageNum, pageSize);
     }
 
     render() {

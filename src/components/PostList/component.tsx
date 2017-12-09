@@ -15,7 +15,7 @@ type PostListComponentProps = DispatchProps & OwnProps;
 export class PostListComponent extends React.Component<PostListComponentProps> {
     render() {
         return (
-            <div>
+            <div className="vertical-container">
                 {this.props.posts.map(post =>
                     <PostBrief
                         key={post.postId}

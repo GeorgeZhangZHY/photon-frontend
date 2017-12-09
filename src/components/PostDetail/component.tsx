@@ -103,18 +103,20 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                 : <button onClick={this.showRequestDialog}>我要约拍TA</button>;
         }
 
+        const userInfo = {
+            avatarUrl: ownerAvatarUrl,
+            gender: ownerGender,
+            identity: ownerIdentity,
+            regionCode: 0,
+            regionName: '',
+            userId: ownerId,
+            userName: ownerName
+        };
+
         return (
             <div>
                 <section>
-                    <UserBrief
-                        avatarUrl={ownerAvatarUrl}
-                        gender={ownerGender}
-                        identity={ownerIdentity}
-                        regionCode={0}
-                        regionName={''}
-                        userId={ownerId}
-                        userName={ownerName}
-                    />
+                    <UserBrief user={userInfo} />
                     <table>
                         <tr>
                             <th>面向地区</th>

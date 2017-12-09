@@ -11,17 +11,26 @@ export type StateProps = {
 type Props = StateProps;
 
 type State = {
-    posts: Post[]
+    posts: Post[],
 };
 
 export class LatestPostFeedComponent extends React.Component<Props, State> {
 
-    state = {
-        posts: []
-    };
+    constructor(props: Props, context?: any) {
+        super(props, context);
+        this.state = {
+            posts: [],
+        };
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if (nextProps.filter !== this.props.filter) {
+            this.setState({ posts: [] });  // 更改筛选条件时清空已有数据
+        }
+    }
 
     loadMorePosts = (pageNum: number, pageSize: number) => {
-        let condition: any = undefined;
+        let condition: any = {};
         const { filter } = this.props;
         Object.getOwnPropertyNames(filter).forEach(key => {
             const value = filter[key];
@@ -33,7 +42,9 @@ export class LatestPostFeedComponent extends React.Component<Props, State> {
     }
 
     handleNewPosts = (newPosts: Post[]) => {
-        this.setState(prevState => ({ posts: prevState.posts.concat(newPosts) }));
+        this.setState(prevState => ({
+            posts: prevState.posts.concat(newPosts)
+        }));
     }
 
     render() {
@@ -42,6 +53,7 @@ export class LatestPostFeedComponent extends React.Component<Props, State> {
                 loadData={this.loadMorePosts}
                 pageSize={10}
                 onDataLoaded={this.handleNewPosts}
+                symbol={this.props.filter}
             >
                 <PostList posts={this.state.posts} />
             </InfiniteScroll>

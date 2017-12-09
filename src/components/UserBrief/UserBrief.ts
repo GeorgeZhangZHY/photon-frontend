@@ -1,12 +1,18 @@
 import { connect } from 'react-redux';
-import { UserBriefComponent, OwnProps } from './component';
 import { Store } from '../../global/mainReducer';
-import { StateProps } from './component';
+import { StateProps, DispatchProps, OwnProps, UserBriefComponent } from './component';
+import { Dispatch } from 'redux';
+import { enterUserSpace } from './actions';
+import { UserBriefInfo } from '../../global/models';
 
 const mapStateToProps = (state: Store): StateProps => ({
     currentUserId: state.currentUser.userId
 });
 
-const UserBrief = connect<StateProps, never, OwnProps>(mapStateToProps)(UserBriefComponent);
+const mapDispatchToProps = (dispatch: Dispatch<{}>): DispatchProps => ({
+    handleEnterUserSpace: (user: UserBriefInfo) => dispatch(enterUserSpace(user))
+});
+
+const UserBrief = connect<StateProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(UserBriefComponent);
 
 export default UserBrief;

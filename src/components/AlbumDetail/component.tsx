@@ -103,7 +103,7 @@ export class AlbumDetailComponent extends React.Component<Props, State> {
         return (
             <div>
                 <section>
-                    <UserBrief {...owner} />
+                    <UserBrief user={owner} />
                 </section>
                 <section>
                     <img src={albumCoverUrl} alt={albumName} />
@@ -138,7 +138,7 @@ export class AlbumDetailComponent extends React.Component<Props, State> {
                 </section>
                 <section>
                     <header>参与人员</header>
-                    {paticipants.map(user => <UserBrief key={user.userId} {...user} />)}
+                    {paticipants.map(user => <UserBrief key={user.userId} user={user} />)}
                 </section>
                 <section>
                     <header>{photoUrls.length}张照片</header>

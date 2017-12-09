@@ -34,7 +34,7 @@ export default class FollowedUserFeed extends React.Component<Props, State> {
                 onDataLoaded={this.handleNewUsers}
             >
                 <div>
-                    {this.state.followedUsers.map(user => <UserBrief key={user.userId} {...user} />)}
+                    {this.state.followedUsers.map(user => <UserBrief key={user.userId} user={user} />)}
                 </div>
             </InfiniteScroll>
         );

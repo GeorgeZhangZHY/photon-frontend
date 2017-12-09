@@ -6,8 +6,15 @@ import LatestPostFeed from '../LatestPostFeed/LatestPostFeed';
 import PostDetail from '../PostDetail/PostDetail';
 import ModifyPost from '../ModifyPost/ModifyPost';
 import AddPost from '../AddPost/AddPost';
+import FollowActivityFeed from '../FollowActivityFeed/FollowActivityFeed';
+import AlbumDetail from '../AlbumDetail/AlbumDetail';
+import PhotoViewer from '../PhotoViewer/PhotoViewer';
+import UserSpace from '../UserSpace/UserSpace';
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
 
 import './App.css';
+import '../../global/common.css';
 
 export type AppComponentProps = {
     initRegions: () => void,
@@ -29,15 +36,25 @@ export class AppComponent extends React.Component<AppComponentProps> {
     }
 
     render() {
-        return [
-            <NavBar key="0" />,
-            <Route key="1" exact path="/" component={Filter} />,
-            // <Gallery key="2" />,
-            // <Gallery key="3" />,
-            <Route key="4" exact path="/" component={LatestPostFeed} />,
-            <Route key="5" path="/post/:postId" component={PostDetail} />,
-            <Route key="6" path="/modifyPost" component={ModifyPost} />,
-            <Route key="7" path="/addPost" component={AddPost} />
-        ];
+        return (
+            <div>
+                <NavBar />
+                <div className="vertical-container app">
+                    <Route exact path="/" component={Filter} />
+                    <Route exact path="/" component={LatestPostFeed} />
+                    <Route path="/post/:postId" component={PostDetail} />
+                    <Route path="/modifyPost" component={ModifyPost} />
+                    <Route path="/addPost" component={AddPost} />
+                    <Route path="/activity" component={FollowActivityFeed} />
+                    <Route path="/album/:albumId" component={AlbumDetail} />
+                    <Route path="/photo" component={PhotoViewer} />
+                    <Route path="/user/:userId" component={UserSpace} />
+                    <Route path="/signIn" component={SignIn} />
+                    <Route path="/SignUp" component={SignUp} />
+                </div>
+            </div>
+
+        );
+
     }
 }

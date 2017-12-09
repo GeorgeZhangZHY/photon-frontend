@@ -1,7 +1,7 @@
 import { Store } from '../../global/mainReducer';
 import { ModifyPostAction } from './actions';
 
-const currentPost = (
+export const currentPost = (
     state: Store['currentPost'] = {
         postId: 0, content: '', cost: 0, costOption: '', isClosed: false,
         createTime: '', ownerAvatarUrl: '', ownerGender: '',
@@ -18,5 +18,3 @@ const currentPost = (
             return state;
     }
 };
-
-export default currentPost;

@@ -1,10 +1,15 @@
-.filter {
+.filter-item {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    padding-top: 20px;
+}
+
+.filter-item:first-child{
     
 }
 
-.filter-item {
-    width: 100%;
-    border-bottom: 1px solid;
+.filter-item:last-child{
+    border-bottom: none;
 }
 
 .filter-item ul{
@@ -13,13 +18,14 @@
 }
 
 .filter-item li {
-    padding: 3px;
+    padding: 5px;
     margin-bottom: 4px;
     margin-right: 12px;
     color: #1e56a0;
     border-radius: 3px;
     transition: all 0.4s;
     list-style-type: none;
+    font-size: 0.8rem;
 }
 
 .filter-item li:hover{

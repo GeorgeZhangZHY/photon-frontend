@@ -3,7 +3,7 @@ import { Album, RouteProps } from '../../global/models';
 import { MultiPicker } from '../MultiPicker/MultiPicker';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import { withRouter } from 'react-router-dom';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 
 export type StateProps = {
     album: Album,
@@ -40,7 +40,8 @@ class AlbumEdit extends React.Component<Props, State> {
         };
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const { onSubmit, history } = this.props;
         onSubmit(this.state).then(() => {
             history!.goBack();

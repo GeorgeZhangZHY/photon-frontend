@@ -3,64 +3,21 @@ import { Store } from '../../global/mainReducer';
 import { Region } from '../../global/models';
 import './Filter.css';
 
-type FilterItemProps = {
-    type: 'regionCode' | 'costOption' | 'identity' | 'gender',
-    title: string,
-    options: string[] | Region[],
-    selectedValue: number | string,         // 选中区域时对应的是number
-    handleSelect: (newValue: Partial<Store['filter']>) => void,
-    extraOption?: string,
-    handleExtra?: () => void
-};
+type Props = StateProps & DispatchProps;
 
-const FilterItem = (
-    { type, title, options, selectedValue, handleSelect, extraOption, handleExtra }: FilterItemProps
-) => {
-
-    let listItems = type === 'regionCode' ?
-        (options as Region[]).map(region => (
-            <li
-                key={region.regionCode}
-                className={region.regionCode === selectedValue ? 'selected' : ''}
-                onClick={() => {
-                    handleSelect({ regionCode: region.regionCode });
-                }}
-            >{region.regionName}
-            </li>)) :
-        (options as string[]).map(option => (
-            <li
-                key={option}
-                className={option === selectedValue ? 'selected' : ''}
-                onClick={() => {
-                    handleSelect({ [type]: option });
-                }}
-            >{option}
-            </li>));
-
-    return (
-        <div className="filter-item">
-            <span>{title}：</span>
-            <ul>
-                {listItems}
-                {extraOption ?
-                    <li key="extra" onClick={handleExtra}>{extraOption}</li>
-                    : null}
-            </ul>
-        </div>
-    );
-};
-
-export type FilterComponentProps = {
+export type StateProps = {
     displayRegions: Region[],
     costOptions: string[],
     identities: string[],
     genders: string[],
     filter: Store['filter'],
-    handleSelect: FilterItemProps['handleSelect'],
-    handleExtra: FilterItemProps['handleExtra']
 };
 
-export class FilterComponent extends React.Component<FilterComponentProps> {
+export type DispatchProps = {
+    handleSelect: FilterItemProps['handleSelect'],
+};
+
+export class FilterComponent extends React.Component<Props> {
 
     render() {
         return (
@@ -70,8 +27,6 @@ export class FilterComponent extends React.Component<FilterComponentProps> {
                     type="regionCode"
                     options={this.props.displayRegions}
                     handleSelect={this.props.handleSelect}
-                    extraOption=">>其他地区"
-                    handleExtra={this.props.handleExtra}
                     selectedValue={this.props.filter.regionCode}
                 />
                 <FilterItem
@@ -99,3 +54,45 @@ export class FilterComponent extends React.Component<FilterComponentProps> {
         );
     }
 }
+
+type FilterItemProps = {
+    type: 'regionCode' | 'costOption' | 'identity' | 'gender',
+    title: string,
+    options: string[] | Region[],
+    selectedValue: number | string,         // 选中区域时对应的是number
+    handleSelect: (newValue: Partial<Store['filter']>) => void,
+};
+
+const FilterItem = (
+    { type, title, options, selectedValue, handleSelect }: FilterItemProps
+) => {
+
+    let listItems = type === 'regionCode' ?
+        (options as Region[]).map(region => (
+            <li
+                key={region.regionCode}
+                className={region.regionCode === selectedValue ? 'selected' : ''}
+                onClick={() => {
+                    handleSelect({ regionCode: region.regionCode });
+                }}
+            >{region.regionName}
+            </li>)) :
+        (options as string[]).map(option => (
+            <li
+                key={option}
+                className={option === selectedValue ? 'selected' : ''}
+                onClick={() => {
+                    handleSelect({ [type]: option });
+                }}
+            >{option}
+            </li>));
+
+    return (
+        <div className="filter-item">
+            <span>{title}：</span>
+            <ul>
+                {listItems}
+            </ul>
+        </div>
+    );
+};

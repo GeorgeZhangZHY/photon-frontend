@@ -9,7 +9,7 @@ export class Comment extends React.Component<CommentProps> {
         const { commentTime, content } = this.props;
         return (
             <div>
-                <UserBrief {...this.props} />
+                <UserBrief user={this.props} />
                 <p>{content}</p>
                 <span>{commentTime}</span>
             </div>

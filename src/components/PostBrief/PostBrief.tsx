@@ -18,19 +18,21 @@ export default function PostBrief(props: PostBriefProps) {
         requiredRegionName, ownerAvatarUrl
     } = props.post;
 
+    const userInfo = {
+        avatarUrl: ownerAvatarUrl,
+        gender: ownerGender,
+        userId: ownerId,
+        identity: ownerIdentity,
+        regionName: '',
+        userName: ownerName,
+        regionCode: 0
+    };
+
     const { handleEnterDetail } = props;
 
     return (
         <section>
-            <UserBrief
-                avatarUrl={ownerAvatarUrl}
-                gender={ownerGender}
-                userId={ownerId}
-                identity={ownerIdentity}
-                regionName={''}
-                userName={ownerName}
-                regionCode={0}
-            />
+            <UserBrief user={userInfo} />
             <Link to={`/post/${postId}`} onClick={() => handleEnterDetail(props.post)}>
                 <span>{content}</span>
                 <span>{costOption} {cost > 0 ? cost + '元' : ''}</span>

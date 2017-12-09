@@ -45,7 +45,8 @@ export class ModifyUserComponent extends React.Component<Props, State> {
         };
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const modifiedUser = { ...this.props.user, ...this.state };
         modifyUserInfo(modifiedUser).then(() => {
             this.props.handleModifyUserInfo(modifiedUser);

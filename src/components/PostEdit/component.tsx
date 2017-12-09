@@ -3,7 +3,7 @@ import { Post, RouteProps } from '../../global/models';
 import { ImageUploader } from '../ImageUploader/ImageUploader';
 import { MultiPicker } from '../MultiPicker/MultiPicker';
 import RegionSelect from '../RegionSelect/RegionSelect';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { withRouter } from 'react-router-dom';
 
 export type StateProps = {
@@ -65,7 +65,8 @@ class PostEdit extends React.Component<PostEditComponentProps, {
         this.setState({ tags });
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         let result = { ...this.props.post, ...this.state };
         const { onSubmit, history } = this.props;
         onSubmit(result as Post).then(() => history!.goBack());

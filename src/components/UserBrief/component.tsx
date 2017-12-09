@@ -18,43 +18,54 @@ export type StateProps = {
     currentUserId: number
 };
 
-export type OwnProps = UserBriefInfo & {
-    hideFollow?: boolean
+export type DispatchProps = {
+    handleEnterUserSpace: (user: UserBriefInfo) => void
 };
 
-type UserBriefComponentProps = StateProps & OwnProps;
+export type OwnProps = {
+    hideFollow?: boolean
+    user: UserBriefInfo
+};
 
-export class UserBriefComponent extends React.Component<UserBriefComponentProps, { hasFollowed: boolean }> {
+type Props = StateProps & DispatchProps & OwnProps;
 
-    constructor(props: UserBriefComponentProps) {
-        super(props);
-        this.state = {
-            hasFollowed: false
-        };
-        this.toggleFollow = this.toggleFollow.bind(this);
-    }
+type State = {
+    hasFollowed: boolean
+};
+
+export class UserBriefComponent extends React.Component<Props, State> {
+
+    state: State = {
+        hasFollowed: false
+    };
 
     componentDidMount() {
-        const { userId, currentUserId } = this.props;
-        checkFollow(userId, currentUserId).then(hasFollowed => {
+        const { user, currentUserId } = this.props;
+        checkFollow(user.userId, currentUserId).then(hasFollowed => {
             this.setState({ hasFollowed });
         });
     }
 
-    toggleFollow() {
-        const { userId, currentUserId } = this.props;
-        (handleFollow['' + this.state.hasFollowed](userId, currentUserId) as AxiosPromise)
+    toggleFollow = () => {
+        const { user, currentUserId } = this.props;
+        (handleFollow['' + this.state.hasFollowed](user.userId, currentUserId) as AxiosPromise)
             .then(() => this.setState(prevState => ({
                 hasFollowed: !prevState.hasFollowed
             })));
     }
 
+    handleClick = () => {
+        const { user, handleEnterUserSpace } = this.props;
+        handleEnterUserSpace(user);
+    }
+
     render() {
-        const { avatarUrl, userName, gender, identity, regionName, userId, currentUserId, hideFollow } = this.props;
+        const { currentUserId, hideFollow } = this.props;
+        const { avatarUrl, userName, gender, identity, regionName, userId } = this.props.user;
         const isSelf = userId === currentUserId;
         return (
             <div>
-                <Link to={isSelf ? '/user/me' : '/user/' + userId}>
+                <Link to={'/user/' + userId} onClick={this.handleClick}>
                     <img src={avatarUrl} alt="头像" />
                     <span>{userName}</span>
                 </Link>

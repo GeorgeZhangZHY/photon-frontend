@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import './NavBar.css';
 
 export type StateProps = {
     isLoggedIn: boolean
@@ -24,19 +25,20 @@ export class NavBarComponent extends React.Component<NavBarComponentProps> {
     render() {
         const { isLoggedIn } = this.props;
         return (
-            <nav>
-                <Link to="/">首页</Link>
-                <Link to="/theme">主题</Link>
-                {
-                    isLoggedIn ?
-                        [
-                            <Link key="0" to="/follow" >关注</Link>,
-                            <Link key="1" to="/user/me" >我的</Link>,
-                            <Link key="2" to="/message" >提醒</Link>
+            <nav className="navbar">
+                <div className="horizontal-container navbar-controls">
+                    <Link to="/">Photon</Link>
+                    {isLoggedIn ? [
+                        <Link key="0" to="/follow">关注</Link>,
+                        <Link key="1" to="/user/me">我的</Link>,
+                        <Link key="2" to="/message">提醒</Link>
+                    ] : [
+                            <Link key="3" to="/signIn">登录</Link>,
+                            <Link key="4" to="/signUp">注册</Link>,
                         ]
-                        : null
-                }
-            </nav >
+                    }
+                </div>
+            </nav>
         );
     }
 }

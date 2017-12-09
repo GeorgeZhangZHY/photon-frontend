@@ -1,7 +1,7 @@
 import { Store } from '../../global/mainReducer';
 import { SetFilterAction } from './actions';
 
-const filter = (
+export const filter = (
     state: Store['filter'] = { regionCode: 0, costOption: '全部', identity: '全部', gender: '全部' },
     action: SetFilterAction
 ): Store['filter'] => {
@@ -12,5 +12,3 @@ const filter = (
             return state;
     }
 };
-
-export default filter;

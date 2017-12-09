@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import promiseMiddleware from 'redux-promise-middleware';
 import reducer from './global/mainReducer';
 import App from './components/App/App';
-import './index.css';
+import { Route } from 'react-router';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +19,7 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App />
+            <Route component={App} />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root') as HTMLElement

@@ -1,4 +1,4 @@
-import { getData, deleteData, postData, putData } from './utils';
+import { getData, postData } from './utils';
 import { Status, UserBriefInfo } from '../global/models';
 
 type RequestCheckResult = {

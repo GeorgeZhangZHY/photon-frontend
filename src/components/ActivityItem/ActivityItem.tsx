@@ -27,7 +27,7 @@ export default class ActivityItem extends React.Component<Props> {
         const photoNum = payload.photoUrls.length;
         return (
             <div>
-                <UserBrief {...user} hideFollow />
+                <UserBrief user={user} hideFollow />
                 <Link to={`/${type}/${payload[idKey[type]]}`}>
                     <span>{action[type]}</span>
                     <p>{payload[contentKey[type]]}{photoNum > 0 ? `(${photoNum}张)` : null}</p>

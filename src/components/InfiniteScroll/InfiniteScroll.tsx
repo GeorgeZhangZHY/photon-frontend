@@ -2,7 +2,8 @@ import * as React from 'react';
 
 type Props = {
     pageSize: number,
-    initialPageNum?: number,
+    symbol?: any, // 用于标识接受到的数据类型，在标识改变时恢复为初始状态
+    initialPageNum?: number, // 用于初始化自己state中的pageNum
     loadData: (pageNum: number, pageSize: number) => Promise<any[]>,
     onDataLoaded: (newData: any[]) => void
 };
@@ -18,11 +19,23 @@ export default class InfiniteScroll extends React.Component<Props, State> {
     constructor(props: Props, context?: any) {
         super(props, context);
         this.state = {
-            currentPageNum: props.initialPageNum ? props.initialPageNum : -1,
+            currentPageNum: props.initialPageNum || -1,
             hasMorePage: true,
             isLoading: false,
             isThrottled: false
         };
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        const { symbol, initialPageNum } = this.props;
+        if (nextProps.symbol !== symbol) {
+            this.setState({
+                currentPageNum: initialPageNum || -1,
+                hasMorePage: true,
+                isLoading: false,
+                isThrottled: false
+            });
+        }
     }
 
     componentDidMount() {
@@ -59,10 +72,13 @@ export default class InfiniteScroll extends React.Component<Props, State> {
     }
 
     loadNextPage = () => {
-        const { loadData, pageSize, onDataLoaded } = this.props;
+        const { loadData, pageSize, onDataLoaded, symbol } = this.props;
         const { currentPageNum } = this.state;
         this.setState({ isLoading: true });
         loadData(currentPageNum + 1, pageSize).then(newData => {
+            if (symbol !== this.props.symbol) {
+                return;     // 加载完成之前更换条件，放弃无效数据
+            }
             onDataLoaded(newData);
             this.setState({
                 isLoading: false,
