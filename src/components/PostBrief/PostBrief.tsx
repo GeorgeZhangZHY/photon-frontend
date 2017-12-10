@@ -31,7 +31,7 @@ export default function PostBrief(props: PostBriefProps) {
     const { handleEnterDetail } = props;
 
     return (
-        <section>
+        <section className="vertical-container">
             <UserBrief user={userInfo} />
             <Link to={`/post/${postId}`} onClick={() => handleEnterDetail(props.post)}>
                 <span>{content}</span>

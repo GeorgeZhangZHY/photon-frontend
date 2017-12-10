@@ -1,0 +1,17 @@
+.avatar-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.gender-logo {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.cancel-follow {
+    background: white;
+    color: #0f88eb;
+    border: 1px solid #0f88eb;
+}

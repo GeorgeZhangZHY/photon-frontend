@@ -3,10 +3,16 @@ import { UserBriefInfo } from '../../global/models';
 import { cancelFollow, addNewFollow, checkFollow } from '../../netAccess/follows';
 import { AxiosPromise } from 'axios';
 import { Link } from 'react-router-dom';
+import './UserBrief.css';
 
 export const genderLogos = {
     '男': require('./male.svg'),
     '女': require('./female.svg')
+};
+
+export const defaultAvatar = {
+    '男': require('./avatar-man.svg'),
+    '女': require('./avatar-woman.svg')
 };
 
 export const handleFollow = {
@@ -19,11 +25,11 @@ export type StateProps = {
 };
 
 export type DispatchProps = {
-    handleEnterUserSpace: (user: UserBriefInfo) => void
+    handleEnterUserSpace: (userId: number) => void
 };
 
 export type OwnProps = {
-    hideFollow?: boolean
+    hideFollow?: boolean,
     user: UserBriefInfo
 };
 
@@ -56,25 +62,32 @@ export class UserBriefComponent extends React.Component<Props, State> {
 
     handleClick = () => {
         const { user, handleEnterUserSpace } = this.props;
-        handleEnterUserSpace(user);
+        handleEnterUserSpace(user.userId);
     }
 
     render() {
         const { currentUserId, hideFollow } = this.props;
         const { avatarUrl, userName, gender, identity, regionName, userId } = this.props.user;
+        const { hasFollowed } = this.state;
         const isSelf = userId === currentUserId;
         return (
-            <div>
+            <div className="horizontal-container">
                 <Link to={'/user/' + userId} onClick={this.handleClick}>
-                    <img src={avatarUrl} alt="头像" />
+                    <img src={avatarUrl || defaultAvatar[gender]} alt="头像" className="avatar-small" />
+                </Link>
+                <Link to={'/user/' + userId} onClick={this.handleClick}>
                     <span>{userName}</span>
                 </Link>
-                <img src={genderLogos[gender]} alt="性别" />
+                <img src={genderLogos[gender]} alt="性别" className="gender-logo" />
                 <span>{identity}</span>
                 {regionName && <span>{regionName}</span>}
                 {(isSelf || hideFollow) ?
                     null
-                    : <button onClick={this.toggleFollow}>{this.state.hasFollowed ? '已关注' : '关注'}</button>
+                    : <button
+                        onClick={this.toggleFollow}
+                        className={hasFollowed ? 'cancel-follow' : 'primary'}
+                    >{hasFollowed ? '已关注' : '关注'}
+                    </button>
                 }
             </div>
         );

@@ -94,6 +94,8 @@ button, input[type=button], input[type=submit] {
     height: 40px;
     border-radius: 4px;
     border: hidden;
+    outline: none;
+    transition: all 0.3s;
 }
 
 button:hover, 

@@ -5,7 +5,7 @@
 }
 
 .filter-item:first-child{
-    
+    padding-top: 0;
 }
 
 .filter-item:last-child{
