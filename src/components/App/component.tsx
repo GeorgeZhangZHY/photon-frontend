@@ -12,6 +12,7 @@ import PhotoViewer from '../PhotoViewer/PhotoViewer';
 import UserSpace from '../UserSpace/UserSpace';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
+import MessagePane from '../MessagePane/MessagePane';
 
 import './App.css';
 import '../../global/common.css';
@@ -42,7 +43,7 @@ export class AppComponent extends React.Component<AppComponentProps> {
                 <div className="vertical-container app">
                     <Route exact path="/" component={Filter} />
                     <Route exact path="/" component={LatestPostFeed} />
-                    <Route path="/post/:postId" component={PostDetail} />
+                    <Route path="/post/:postId" exact component={PostDetail} />
                     <Route path="/modifyPost" component={ModifyPost} />
                     <Route path="/addPost" component={AddPost} />
                     <Route path="/activity" component={FollowActivityFeed} />
@@ -51,6 +52,7 @@ export class AppComponent extends React.Component<AppComponentProps> {
                     <Route path="/user/:userId" component={UserSpace} />
                     <Route path="/signIn" component={SignIn} />
                     <Route path="/SignUp" component={SignUp} />
+                    <Route path="/message" component={MessagePane} />
                 </div>
             </div>
 

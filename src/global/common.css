@@ -1,5 +1,6 @@
 a {
     text-decoration: none;
+    margin:0 10px 0 10px;
 }
 
 a:link {
@@ -15,6 +16,10 @@ a:hover {
 } 
 
 a:active {
+    color: #0f88ebb3;
+}
+
+a.selected {
     color: #0f88ebb3;
 }
 
@@ -45,7 +50,11 @@ section {
 
 .horizontal-container {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row;
+}
+
+.centered {
+    justify-content: center;
 }
 
 .form-container {

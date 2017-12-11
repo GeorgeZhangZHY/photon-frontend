@@ -7,11 +7,34 @@
 .gender-logo {
     width: 20px;
     height: 20px;
-    margin-left: 10px;
+    margin-left: 5px;
+}
+
+.username {
+    margin: 0;
+}
+
+.other-info {
+    font-size: 0.8rem;
 }
 
 .cancel-follow {
     background: white;
     color: #0f88eb;
     border: 1px solid #0f88eb;
+}
+
+.user-brief {
+    align-items: center;
+    position: relative;
+}
+
+.user-brief > a {
+    margin-left: 10px;
+}
+
+.user-brief-control {
+    position: absolute;
+    right: 0px;
+    width: 80px;
 }

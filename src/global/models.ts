@@ -63,7 +63,7 @@ export type Comment = UserBriefInfo & NewComment & {
 export type CommentNotification = UserBriefInfo & NewComment & {
     albumName: string,
     commentTime: string,
-    commentId: string,
+    commentId: number,
     hasRead: number
 };
 
@@ -123,7 +123,8 @@ export type RequesterInfo = {
 // 他人对该用户发起的约拍请求
 export type OthersRequest = {
     hasRead: boolean,
-    requestTime: string
+    requestTime: string,
+    postContent: string
 } & NewRequest & RequesterInfo;
 
 // 用户自己向他人发起的约拍请求

@@ -1,5 +1,5 @@
-import { getData, postData, deleteData } from './utils';
-import { Like } from '../global/models';
+import { getData, postData, deleteData, putData } from './utils';
+import { Like, LikeNotification } from '../global/models';
 
 export const checkLike = (userId: number, albumId: number) => (
     getData<{ hasLiked: boolean }>('/likes/check', {
@@ -24,4 +24,12 @@ export const cancelLike = (userId: number, albumId: number) => (
 
 export const requestLikesOfAlbum = (albumId: number) => (
     getData<Like[]>(`/likes/album/${albumId}`)
+);
+
+export const requestUnreadLikes = (userId: number) => (
+    getData<LikeNotification[]>(`/likes/unread/${userId}`)
+);
+
+export const setLikeRead = (likerId: number, albumId: number) => (
+    putData('/likes/read', { likerId, albumId })
 );

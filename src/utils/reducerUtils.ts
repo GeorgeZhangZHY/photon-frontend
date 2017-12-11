@@ -8,7 +8,7 @@ type Reducer = (state: State, action: Action) => State;
  * 将多个针对同一个状态树的reducer合并
  * @param reducers 多个针对同一个状态树的reducer，其互相之间除了default外，不存在相同的case（即action.type）
  */
-export function pipelineReducers(...reducers: Reducer[]): Reducer {
+export function composeReducers(...reducers: Reducer[]): Reducer {
     return (state: State, action: Action) => {
         for (const reducer of reducers) {
             const newState = reducer(state, action);

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { pipelineReducers } from '../utils/reducerUtils';
+import { composeReducers } from '../utils/reducerUtils';
 import { Region, Post, User, Filter, Album, UserBriefInfo } from './models';
 import { regions, genders, identities, costOptions, tags, provinces } from '../components/App/reducers';
 import { filter } from '../components/Filter/reducers';
@@ -31,10 +31,10 @@ export type Store = {
 };
 
 export default combineReducers({
-    currentUser: pipelineReducers(currentUser1, currentUser2),
+    currentUser: composeReducers(currentUser1, currentUser2),
     watchingUser,
-    currentPost: pipelineReducers(currentPost1, currentPost2, currentPost3),
-    currentAlbum: pipelineReducers(currentAlbum1, currentAlbum2),
+    currentPost: composeReducers(currentPost1, currentPost2, currentPost3),
+    currentAlbum: composeReducers(currentAlbum1, currentAlbum2),
     currentPhotos,
     photoBeginIndex,
     filter,

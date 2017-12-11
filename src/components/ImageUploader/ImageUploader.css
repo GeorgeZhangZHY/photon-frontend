@@ -1,0 +1,10 @@
+.square {
+    width: 80px;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+}
+
+.square:hover {
+    cursor: pointer;
+}

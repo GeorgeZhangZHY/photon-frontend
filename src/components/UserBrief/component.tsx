@@ -71,21 +71,23 @@ export class UserBriefComponent extends React.Component<Props, State> {
         const { hasFollowed } = this.state;
         const isSelf = userId === currentUserId;
         return (
-            <div className="horizontal-container">
+            <div className="horizontal-container user-brief">
                 <Link to={'/user/' + userId} onClick={this.handleClick}>
                     <img src={avatarUrl || defaultAvatar[gender]} alt="头像" className="avatar-small" />
                 </Link>
-                <Link to={'/user/' + userId} onClick={this.handleClick}>
-                    <span>{userName}</span>
-                </Link>
-                <img src={genderLogos[gender]} alt="性别" className="gender-logo" />
-                <span>{identity}</span>
-                {regionName && <span>{regionName}</span>}
+                <div>
+                    <Link to={'/user/' + userId} onClick={this.handleClick} className="username">
+                        <span>{userName}</span>
+                    </Link>
+                    <img src={genderLogos[gender]} alt="性别" className="gender-logo" /><br />
+                    <span className="other-info">{identity}</span>
+                    {regionName && <span className="other-info">{regionName}</span>}
+                </div>
                 {(isSelf || hideFollow) ?
                     null
                     : <button
                         onClick={this.toggleFollow}
-                        className={hasFollowed ? 'cancel-follow' : 'primary'}
+                        className={`user-brief-control ${hasFollowed ? 'cancel-follow' : 'primary'}`}
                     >{hasFollowed ? '已关注' : '关注'}
                     </button>
                 }

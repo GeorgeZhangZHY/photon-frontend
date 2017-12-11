@@ -5,6 +5,7 @@ import { MultiPicker } from '../MultiPicker/MultiPicker';
 import RegionSelect from '../RegionSelect/RegionSelect';
 import { ChangeEvent, FormEvent } from 'react';
 import { withRouter } from 'react-router-dom';
+import './PostEdit.css';
 
 export type StateProps = {
     post: Post,
@@ -83,9 +84,9 @@ class PostEdit extends React.Component<PostEditComponentProps, {
         const shouldInputCost = !!(['需要收费', '愿意付费'].find(value => value === costOption));
 
         return (
-            <section>
+            <section className="form-container">
                 <header>{title}</header>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="vertical-container">
                     <div>
                         <label data-required>面向地区：</label>
                         <RegionSelect
@@ -115,6 +116,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                                 min={1}
                                 onChange={this.handleCostChange}
                                 required
+                                className="form-input"
                             />
                             : null}
                     </div>
@@ -126,6 +128,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                             placeholder="自我介绍，对应征者的要求等（勿留联系方式，发布后，有人应征即可看到对方的联系方式）"
                             onChange={this.handleContentChange}
                             required
+                            className="form-input"
                         >{content}
                         </textarea>
                     </div>
@@ -139,7 +142,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                         <label>附加照片：</label>
                         <span>您的个人照片或作品，最多9张</span>
                         <ImageUploader
-                            initialImageUrls={photoUrls}
+                            imageUrls={photoUrls}
                             onImageUrlsChange={this.handleImageUrlsChange}
                         />
                     </div>

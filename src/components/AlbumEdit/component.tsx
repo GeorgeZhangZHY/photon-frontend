@@ -118,7 +118,7 @@ class AlbumEdit extends React.Component<Props, State> {
                         title="拍摄标签"
                     />
                     <ImageUploader
-                        initialImageUrls={photoUrls}
+                        imageUrls={photoUrls}
                         onImageUrlsChange={this.handleImageUrlsChange}
                     />
                     <input type="submit" value="提交" />

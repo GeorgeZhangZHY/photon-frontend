@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-// import { Link } from 'react-router-dom';
-import { Post } from '../../global/models';
+import { Post, RouteProps } from '../../global/models';
 import UserBrief from '../UserBrief/UserBrief';
 import Dialog from '../Modals/Dialog';
 import { addNewRequest, checkHasRequested } from '../../netAccess/requests';
 import { closePost } from '../../netAccess/posts';
 import PhotoList from '../PhotoList/PhotoList';
+import { Link } from 'react-router-dom';
 
 export type DispatchProps = {
     setCurrentPostClosed: () => void,
@@ -18,7 +18,7 @@ export type StateProps = {
     post: Post
 };
 
-type PostDetailComponentProps = StateProps & DispatchProps;
+type PostDetailComponentProps = StateProps & DispatchProps & RouteProps;
 
 export class PostDetailComponent extends React.Component<PostDetailComponentProps, {
     showDialog: boolean,
@@ -74,13 +74,13 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         closePost(postId).then(() => setCurrentPostClosed());
     }
 
-    handleMessageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    handleMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         this.setState({ message: event.target.value });
         event.preventDefault();
     }
 
     render() {
-        const { currentUserId } = this.props;
+        const { currentUserId, match } = this.props;
         const {
             content, cost, costOption, isClosed, createTime, ownerAvatarUrl, ownerGender,
             ownerId, ownerIdentity, ownerName, requestNum, requiredRegionName, tags, photoUrls
@@ -93,7 +93,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             const lessThan5Min = (new Date().getTime() - new Date(createTime).getTime()) / 1000 / 60 < 5;
             operations = (
                 <div>
-                    {lessThan5Min ? <button>编辑</button> : null}
+                    {lessThan5Min ? <Link to={`${match!.url}/modify`}>编辑</Link> : null}
                     {isClosed ? null : <button onClick={this.handleClosePost}>关闭帖子</button>}
                 </div>
             );
@@ -147,12 +147,11 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                     >
                         <label>
                             约拍留言（必填）
-                            <input
-                                type="text"
-                                value={message}
+                            <textarea
                                 onChange={this.handleMessageChange}
                                 placeholder="例如拍摄时间、地点、要求等"
-                            />
+                            >{message}
+                            </textarea>
                         </label>
                     </Dialog>
                     : null

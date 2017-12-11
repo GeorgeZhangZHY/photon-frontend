@@ -55,23 +55,31 @@ export class RegionSelectComponent extends React.Component<Props, State> {
 
         return (
             <div>
-                <select name="province" required onChange={this.handleProvinceChange}>
-                    <option value="" disabled selected={!selectedProvinceCode} hidden>省份</option>
+                <select
+                    name="province"
+                    required
+                    onChange={this.handleProvinceChange}
+                    value={selectedProvinceCode}
+                >
+                    <option value={0} disabled hidden>省份</option>
                     {provinces.map(province =>
                         <option
                             key={province.regionCode}
                             value={province.regionCode}
-                            selected={province.regionCode === selectedProvinceCode}
                         >{province.regionName}
                         </option>)}
                 </select>
-                <select name="region" required onChange={this.handleRegionChange}>
-                    <option value="" disabled selected={!selectedRegionCode} hidden>地区</option>
+                <select
+                    name="region"
+                    required
+                    onChange={this.handleRegionChange}
+                    value={selectedRegionCode}
+                >
+                    <option value={0} disabled hidden>地区</option>
                     {subRegions && subRegions.map(region =>
                         <option
                             key={region.regionCode}
                             value={region.regionCode}
-                            selected={region.regionCode === selectedRegionCode}
                         >{region.regionName}
                         </option>)}
                 </select>

@@ -1,5 +1,5 @@
-import { postData, deleteData, getData } from './utils';
-import { UserBriefInfo } from '../global/models';
+import { postData, deleteData, getData, putData } from './utils';
+import { UserBriefInfo, FollowNotification } from '../global/models';
 
 export const addNewFollow = (userId: number, followerId: number) => postData('/follows', {
     userId,
@@ -23,4 +23,12 @@ export const requestFollowedUsers = (followerId: number, pageNum: number, pageSi
         pageNum,
         pageSize
     })
+);
+
+export const requestUnreadFollows = (userId: number) => (
+    getData<FollowNotification[]>(`/follows/unread/${userId}`)
+);
+
+export const setFollowRead = (userId: number, followerId: number) => (
+    putData('/follows/read', { userId, followerId })
 );
