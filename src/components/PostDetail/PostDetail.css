@@ -1,0 +1,11 @@
+table {
+    border: 1px solid lightgray;
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid lightgray;
+}

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './MultiPicker.css';
 
 type Props = {
     title: string,
@@ -26,15 +27,19 @@ export class MultiPicker extends React.Component<Props> {
     render() {
         const { allItems, selectedItems, title } = this.props;
         return (
-            <div>
+            <div className="form-item">
                 <label>{title}：</label>
-                {allItems.map(item =>
-                    <span
-                        key={item}
-                        onClick={() => this.toggleItem(item)}
-                        className={selectedItems.find(selecteditem => selecteditem === item) ? 'selected' : ''}
-                    >{item}
-                    </span>)}
+                <div className="horizontal-container">
+                    {allItems.map(item =>
+                        <span
+                            key={item}
+                            onClick={() => this.toggleItem(item)}
+                            className={selectedItems.find(selecteditem => selecteditem === item) ?
+                                'pick-item selected'
+                                : 'pick-item'}
+                        >{item}
+                        </span>)}
+                </div>
             </div>
         );
     }

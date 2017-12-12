@@ -5,6 +5,16 @@
     background-size: cover;
 }
 
+.square.big {
+    width: 120px;
+    height: 120px;
+}
+
+.square.huge {
+    width: 200px;
+    height: 200px;
+}
+
 .square:hover {
     cursor: pointer;
 }

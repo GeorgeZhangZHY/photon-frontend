@@ -5,7 +5,8 @@ const addLogo = require('./add.svg');
 
 type ImageUploaderProps = {
     onImageUrlsChange: (imageUrls: string[]) => void,
-    imageUrls: string[]
+    imageUrls: string[],
+    single?: boolean
 };
 
 export class ImageUploader extends React.Component<ImageUploaderProps> {
@@ -31,9 +32,10 @@ export class ImageUploader extends React.Component<ImageUploaderProps> {
     }
 
     render() {
+        const { imageUrls, single } = this.props;
         return (
             <div className="horizontal-container">
-                {this.props.imageUrls.map((url, index) =>
+                {imageUrls.map((url, index) =>
                     <div
                         className="square"
                         key={url}
@@ -47,7 +49,7 @@ export class ImageUploader extends React.Component<ImageUploaderProps> {
                     <input
                         type="file"
                         accept="image/*"
-                        multiple
+                        multiple={!single}
                         ref={input => this.input = input!}
                         onChange={this.readImages}
                         style={{ opacity: 0 }}

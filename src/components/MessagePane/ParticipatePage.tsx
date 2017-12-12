@@ -29,7 +29,7 @@ export class ParticipatePage extends React.PureComponent<Props> {
         return (
             <div>
                 {results.map(res =>
-                    <div key={res.albumId}>
+                    <div key={res.albumId} className="form-item">
                         <UserBrief
                             hideFollow
                             user={{
@@ -42,7 +42,7 @@ export class ParticipatePage extends React.PureComponent<Props> {
                                 userName: res.userName
                             }}
                         />
-                        <span><b>{actions[res.status]}</b>将您加入相册『{res.albumName}』的参与者</span>
+                        <span><b>{actions[res.status]}</b>将您加入相册『{res.albumName}』的参与者</span><br/>
                         <span>{res.createTime}</span>
                         <button onClick={() => this.handleSetRead(res)}>我知道了</button>
                     </div>)}

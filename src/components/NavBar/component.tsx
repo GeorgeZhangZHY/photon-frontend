@@ -32,10 +32,12 @@ export class NavBarComponent extends React.Component<NavBarComponentProps> {
                         <Link key="0" to="/follow">关注</Link>,
                         <Link key="1" to={`/user/${currentUserId}`}>我的</Link>,
                         <Link key="2" to="/message">提醒</Link>,
-                        <Link key="3" to="/addPost">发布约拍</Link>
+                        <Link key="3" to="/addPost">发布约拍</Link>,
+                        <Link key="4" to="/album">相册</Link>,
+                        <Link key="5" to="/addAlbum">发布相册</Link>
                     ] : [
-                            <Link key="3" to="/signIn">登录</Link>,
-                            <Link key="4" to="/signUp">注册</Link>,
+                            <Link key="1" to="/signIn">登录</Link>,
+                            <Link key="2" to="/signUp">注册</Link>,
                         ]
                     }
                 </div>

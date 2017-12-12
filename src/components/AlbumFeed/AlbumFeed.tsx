@@ -18,7 +18,7 @@ export default class AlbumFeed extends React.Component<Props, State> {
     };
 
     handleNewAlbums = (newAlbums: Album[]) => {
-        this.setState(prevState => ({ posts: prevState.albums.concat(newAlbums) }));
+        this.setState(prevState => ({ albums: prevState.albums.concat(newAlbums) }));
     }
 
     render() {
@@ -28,9 +28,9 @@ export default class AlbumFeed extends React.Component<Props, State> {
                 loadData={this.props.onLoadMore}
                 onDataLoaded={this.handleNewAlbums}
             >
-                <div>
+                <section className="horizontal-container">
                     {this.state.albums.map(album => <AlbumBrief key={album.albumId} album={album} />)}
-                </div>
+                </section>
             </InfiniteScroll>
         );
     }

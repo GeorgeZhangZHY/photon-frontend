@@ -13,11 +13,18 @@ import UserSpace from '../UserSpace/UserSpace';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import MessagePane from '../MessagePane/MessagePane';
-
+import LatestAlbumFeed from '../AlbumFeed/LatestAlbumFeed';
+import ModifyUser from '../ModifyUser/ModifyUser';
+import AddAlbum from '../AddAlbum/AddAlbum';
+import ModifyAlbum from '../ModifyAlbum/ModifyAlbum';
 import './App.css';
 import '../../global/common.css';
+import { User } from '../../global/models';
+import { Redirect } from 'react-router';
 
-export type AppComponentProps = {
+const backImage = require('./back.jpg');
+
+export type DispatchProps = {
     initRegions: () => void,
     initIdentities: () => void,
     initCostOptions: () => void,
@@ -25,7 +32,13 @@ export type AppComponentProps = {
     initTags: () => void
 };
 
-export class AppComponent extends React.Component<AppComponentProps> {
+export type StateProps = {
+    currenUser: User
+};
+
+type Props = StateProps & DispatchProps;
+
+export class AppComponent extends React.Component<Props> {
 
     componentDidMount() {
         // 只加载一次不会在短时间内改变的全局数据
@@ -37,17 +50,26 @@ export class AppComponent extends React.Component<AppComponentProps> {
     }
 
     render() {
+        const isLoggedIn = !!this.props.currenUser.userId;
         return (
-            <div>
+            <div
+                className="back"
+                style={{ backgroundImage: `url(${backImage})` }}
+            >
                 <NavBar />
-                <div className="vertical-container app">
+                <div className="vertical-container app centered">
+                    {isLoggedIn ? null : <Redirect to="/signIn" />}
                     <Route exact path="/" component={Filter} />
                     <Route exact path="/" component={LatestPostFeed} />
+                    <Route path="/follow" exact component={FollowActivityFeed} />
                     <Route path="/post/:postId" exact component={PostDetail} />
                     <Route path="/modifyPost" component={ModifyPost} />
+                    <Route path="/modifyUser" component={ModifyUser} />
                     <Route path="/addPost" component={AddPost} />
-                    <Route path="/activity" component={FollowActivityFeed} />
+                    <Route path="/album" exact component={LatestAlbumFeed} />
+                    <Route path="/addAlbum" exact component={AddAlbum} />
                     <Route path="/album/:albumId" component={AlbumDetail} />
+                    <Route path="/modifyAlbum" component={ModifyAlbum} />
                     <Route path="/photo" component={PhotoViewer} />
                     <Route path="/user/:userId" component={UserSpace} />
                     <Route path="/signIn" component={SignIn} />

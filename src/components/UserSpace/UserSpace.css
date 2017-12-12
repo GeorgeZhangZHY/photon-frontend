@@ -25,6 +25,8 @@
     left: 20px;
     border-radius: 50%;
     border: 3px solid white;
+    background-size: cover;
+    background-position: center;
 }
 
 .info-container {

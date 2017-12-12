@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Album } from '../../global/models';
 import { Link } from 'react-router-dom';
+import './AlbumBrief.css';
 
 export type DispatchProps = {
     handleEnterDetail: (album: Album) => void
@@ -19,11 +20,13 @@ export class AlbumBriefComponent extends React.Component<AlbumBriefComponentProp
         const { albumId, albumName, coverOrdinal, createTime, photoUrls, shotLocation } = album;
         const coverUrl = photoUrls[coverOrdinal];
         return (
-            <div>
+            <div className="vertical-container album-brief">
                 <Link to={`/album/${albumId}`} onClick={() => handleEnterDetail(album)}>
-                    <img src={coverUrl} alt={albumName} />
+                    <div style={{ backgroundImage: `url(${coverUrl})` }} className="square huge" />
                 </Link>
-                <span>{albumName} ({photoUrls.length}张)</span>
+                <Link to={`/album/${albumId}`} onClick={() => handleEnterDetail(album)}>
+                    <span>{albumName} ({photoUrls.length}张)</span>
+                </Link>
                 <span>{createTime}创建</span>
                 <span>{shotLocation}</span>
             </div>

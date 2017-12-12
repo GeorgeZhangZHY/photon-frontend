@@ -18,7 +18,7 @@ export default class ActivityFeed extends React.Component<Props, State> {
     };
 
     handleNewActivities = (newActivities: Activity[]) => {
-        this.setState(prevState => ({ posts: prevState.activities.concat(newActivities) }));
+        this.setState(prevState => ({ activities: prevState.activities.concat(newActivities) }));
     }
 
     render() {

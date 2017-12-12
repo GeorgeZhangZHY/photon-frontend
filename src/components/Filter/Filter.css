@@ -32,8 +32,3 @@
     cursor: pointer;
     background: #eeeeee;
 }
-
-.filter-item li.selected {
-    color: white;
-    background: #1e56a0;
-}

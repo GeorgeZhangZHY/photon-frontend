@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createPortal } from 'react-dom';
+import './Modal.css';
 
 export default class Modal extends React.Component {
 
@@ -14,9 +15,9 @@ export default class Modal extends React.Component {
 
     render() {
         return createPortal(
-            <div className="modal">
+            <section className="modal form-container">
                 {this.props.children}
-            </div>,
+            </section>,
             this.node
         );
     }

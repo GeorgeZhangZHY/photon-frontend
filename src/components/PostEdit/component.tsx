@@ -87,40 +87,44 @@ class PostEdit extends React.Component<PostEditComponentProps, {
             <section className="form-container">
                 <header>{title}</header>
                 <form onSubmit={this.handleSubmit} className="vertical-container">
-                    <div>
+                    <div className="form-item">
                         <label data-required>面向地区：</label>
                         <RegionSelect
                             initialRegionCode={requiredRegionCode}
                             onRegionCodeChange={this.handleRegionChange}
                         />
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label data-required>约拍费用：</label>
-                        {allCostOptions.map(option =>
-                            <label key={option}>
+                        <div>
+                            {allCostOptions.map(option =>
+                                <label key={option}>
+                                    <input
+                                        type="radio"
+                                        name="costOption"
+                                        defaultChecked={option === costOption}
+                                        onChange={this.handleCostOptionChange}
+                                        required
+                                        value={option}
+                                    />
+                                    {option}
+                                </label>)}
+                        </div>
+                        {shouldInputCost ?
+                            <label>输入金额：
                                 <input
-                                    type="radio"
-                                    name="costOption"
-                                    defaultChecked={option === costOption}
-                                    onChange={this.handleCostOptionChange}
+                                    type="number"
+                                    name="cost"
+                                    placeholder="输入金额"
+                                    value={cost}
+                                    min={1}
+                                    onChange={this.handleCostChange}
                                     required
                                 />
-                                {option}
-                            </label>)}
-                        {shouldInputCost ?
-                            <input
-                                type="number"
-                                name="cost"
-                                placeholder="输入金额"
-                                value={cost}
-                                min={1}
-                                onChange={this.handleCostChange}
-                                required
-                                className="form-input"
-                            />
+                            </label>
                             : null}
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label data-required>发布内容：</label>
                         <textarea
                             name="content"
@@ -128,9 +132,8 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                             placeholder="自我介绍，对应征者的要求等（勿留联系方式，发布后，有人应征即可看到对方的联系方式）"
                             onChange={this.handleContentChange}
                             required
-                            className="form-input"
-                        >{content}
-                        </textarea>
+                            value={content}
+                        />
                     </div>
                     <MultiPicker
                         allItems={allTags}
@@ -138,7 +141,7 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                         selectedItems={tags}
                         title="拍摄标签"
                     />
-                    <div>
+                    <div className="form-item">
                         <label>附加照片：</label>
                         <span>您的个人照片或作品，最多9张</span>
                         <ImageUploader
@@ -146,8 +149,10 @@ class PostEdit extends React.Component<PostEditComponentProps, {
                             onImageUrlsChange={this.handleImageUrlsChange}
                         />
                     </div>
-                    <input type="submit" value="提交" />
-                    <input type="button" value="取消" onClick={this.handleCancel} />
+                    <div className="form-item horizontal-container centered">
+                        <input type="submit" value="提交" className="primary" />
+                        <input type="button" value="取消" onClick={this.handleCancel} />
+                    </div>
                 </form>
             </section >
         );

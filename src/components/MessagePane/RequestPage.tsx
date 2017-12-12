@@ -24,7 +24,7 @@ export class RequestPage extends React.PureComponent<Props> {
         return (
             <div>
                 {requests.map(req =>
-                    <div key={req.postId + '-' + req.requesterId}>
+                    <div key={req.postId + '-' + req.requesterId} className="form-item">
                         <UserBrief
                             hideFollow
                             user={{

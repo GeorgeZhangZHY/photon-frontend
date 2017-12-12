@@ -73,7 +73,10 @@ export class UserBriefComponent extends React.Component<Props, State> {
         return (
             <div className="horizontal-container user-brief">
                 <Link to={'/user/' + userId} onClick={this.handleClick}>
-                    <img src={avatarUrl || defaultAvatar[gender]} alt="头像" className="avatar-small" />
+                    <div
+                        style={{ backgroundImage: `url(${avatarUrl || defaultAvatar[gender]})` }}
+                        className="avatar-small"
+                    />
                 </Link>
                 <div>
                     <Link to={'/user/' + userId} onClick={this.handleClick} className="username">

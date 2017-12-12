@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import './PhotoList.css';
 
 export type OwnProps = {
     photoUrls: string[],
@@ -21,10 +22,13 @@ export class PhotoListComponent extends React.Component<Props> {
             urls = urls.slice(0, limit);
         }
         return (
-            <div>
+            <div className="photo-list horizontal-container">
                 {urls.map((url, index) =>
                     <Link key={url} to="/photo" onClick={() => handleEnterImageView(photoUrls, index)}>
-                        <img src={url} className="square" />
+                        <div
+                            className="square big"
+                            style={{ backgroundImage: `url(${url})` }}
+                        />
                     </Link>)}
             </div>
         );

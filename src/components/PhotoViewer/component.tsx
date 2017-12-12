@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteProps } from '../../global/models';
+import './PhotoViewer.css';
 
 export type StateProps = {
     photoUrls: string[],
@@ -43,13 +44,18 @@ export class PhotoViewerComponent extends React.Component<Props, State> {
         const { photoUrls } = this.props;
         const { currentIndex, maxIndex } = this.state;
         return (
-            <div>
-                <header>第{currentIndex + 1}张，共{maxIndex + 1}张</header>
-                <button onClick={this.close}>X</button>
-                <img src={photoUrls[currentIndex]} alt="照片大图" />
-                <button onClick={this.showPrevious}>&lt;</button>
-                <button onClick={this.showNext}>&gt;</button>
-            </div>
+            <section className="photo-viewer">
+                <header className="horizontal-container centered">
+                    <button className="photo-switcher" onClick={this.showPrevious}>&lt;</button>
+                    第{currentIndex + 1}张，共{maxIndex + 1}张
+                    <button className="photo-switcher" onClick={this.showNext}>&gt;</button>
+                </header>
+                <button className="close" onClick={this.close}>X</button>
+                <div
+                    className="photo-big"
+                    style={{ backgroundImage: `url(${photoUrls[currentIndex]})` }}
+                />
+            </section>
         );
     }
 }

@@ -23,7 +23,7 @@ export class LikePage extends React.PureComponent<Props> {
         return (
             <div>
                 {likes.map(l =>
-                    <div key={l.userId + '-' + l.albumId}>
+                    <div key={l.userId + '-' + l.albumId} className="form-item">
                         <UserBrief
                             hideFollow
                             user={{
@@ -36,7 +36,7 @@ export class LikePage extends React.PureComponent<Props> {
                                 userName: l.userName
                             }}
                         />
-                        <span>喜欢了您的相册『{l.albumName}』</span>
+                        <span>喜欢了您的相册『{l.albumName}』</span><br/>
                         <span>{l.createTime}</span>
                         <button onClick={() => this.handleSetRead(l)}>我知道了</button>
                     </div>)}

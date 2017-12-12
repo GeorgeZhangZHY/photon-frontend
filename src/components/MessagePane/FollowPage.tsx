@@ -24,7 +24,7 @@ export class FollowPage extends React.PureComponent<Props> {
         return (
             <div>
                 {follows.map(f =>
-                    <div key={f.followerId}>
+                    <div key={f.followerId} className="form-item">
                         <UserBrief
                             hideFollow
                             user={{
@@ -37,7 +37,7 @@ export class FollowPage extends React.PureComponent<Props> {
                                 userName: f.userName
                             }}
                         />
-                        <span>关注了您</span>
+                        <span>关注了您</span><br/>
                         <span>{f.createTime}</span>
                         <button onClick={() => this.handleSetRead(f)}>我知道了</button>
                     </div>)}

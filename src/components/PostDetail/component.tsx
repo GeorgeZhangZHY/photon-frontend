@@ -7,6 +7,7 @@ import { addNewRequest, checkHasRequested } from '../../netAccess/requests';
 import { closePost } from '../../netAccess/posts';
 import PhotoList from '../PhotoList/PhotoList';
 import { Link } from 'react-router-dom';
+import './PostDetail.css';
 
 export type DispatchProps = {
     setCurrentPostClosed: () => void,
@@ -38,8 +39,8 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
     componentDidMount() {
         const { currentUserId } = this.props;
         const { postId } = this.props.post;
-        checkHasRequested(currentUserId, postId).then(hasRequested => {
-            this.setState({ hasRequested });
+        checkHasRequested(currentUserId, postId).then(result => {
+            this.setState({ hasRequested: result });
         });
     }
 
@@ -99,7 +100,7 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
             );
         } else {
             operations = hasRequested ?
-                <button>已经约拍</button>
+                <span>已经约拍</span>
                 : <button onClick={this.showRequestDialog}>我要约拍TA</button>;
         }
 
@@ -114,25 +115,29 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
         };
 
         return (
-            <div>
-                <section>
+            <div className="vertical-container centered">
+                <section className="vertical-container">
                     <UserBrief user={userInfo} />
                     <table>
-                        <tr>
-                            <th>面向地区</th>
-                            <th>费用</th>
-                            <th>发布时间</th>
-                        </tr>
-                        <tr>
-                            <td>{requiredRegionName}</td>
-                            <td>{costOption + costOption === '需要收费' || costOption === '愿意付费' ? ` ${cost}元` : ''}</td>
-                            <td>{createTime}</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>面向地区</th>
+                                <th>费用</th>
+                                <th>发布时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{requiredRegionName}</td>
+                                <td>{costOption} {costOption === '需要收费' || costOption === '愿意付费' ? `${cost}元` : ''}</td>
+                                <td>{createTime}</td>
+                            </tr>
+                        </tbody>
                     </table>
                     <p>{content}</p>
-                    <ul>
-                        {tags.map(tag => <li key={tag}>{tag}</li>)}
-                    </ul>
+                    <div>
+                        {tags.map(tag => <span className="pick-item" key={tag}>{tag}</span>)}
+                    </div>
                     {requestNum > 0 ? <span>收到约拍{requestNum}条</span> : null}
                     {operations}
                 </section>
@@ -150,8 +155,8 @@ export class PostDetailComponent extends React.Component<PostDetailComponentProp
                             <textarea
                                 onChange={this.handleMessageChange}
                                 placeholder="例如拍摄时间、地点、要求等"
-                            >{message}
-                            </textarea>
+                                value={message}
+                            />
                         </label>
                     </Dialog>
                     : null

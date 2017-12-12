@@ -58,10 +58,10 @@ class AlbumEdit extends React.Component<Props, State> {
             shotDevice, shotLocation, shotTime, tags } = this.state;
 
         return (
-            <section>
+            <section className="form-container">
                 <header>{title}</header>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
+                <form onSubmit={this.handleSubmit} className="vertical-container">
+                    <div className="form-item">
                         <label data-required>作品名称：</label>
                         <input
                             type="text"
@@ -69,19 +69,20 @@ class AlbumEdit extends React.Component<Props, State> {
                             maxLength={25}
                             value={albumName}
                             onChange={this.handleTextChange('albumName')}
+                            className="full-width"
                         />
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label>作品描述：</label>
                         <textarea
                             name="description"
                             cols={30}
                             rows={10}
                             onChange={this.handleTextChange('description')}
-                        >{description}
-                        </textarea>
+                            value={description}
+                        />
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label>拍摄地点：</label>
                         <input
                             type="text"
@@ -89,9 +90,10 @@ class AlbumEdit extends React.Component<Props, State> {
                             maxLength={40}
                             value={shotLocation}
                             onChange={this.handleTextChange('shotLocation')}
+                            className="full-width"
                         />
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label>拍摄时间：</label>
                         <input
                             type="text"
@@ -99,9 +101,10 @@ class AlbumEdit extends React.Component<Props, State> {
                             maxLength={30}
                             value={shotTime}
                             onChange={this.handleTextChange('shotTime')}
+                            className="full-width"
                         />
                     </div>
-                    <div>
+                    <div className="form-item">
                         <label>使用设备：</label>
                         <input
                             type="text"
@@ -109,6 +112,7 @@ class AlbumEdit extends React.Component<Props, State> {
                             maxLength={30}
                             value={shotDevice}
                             onChange={this.handleTextChange('shotDevice')}
+                            className="full-width"
                         />
                     </div>
                     <MultiPicker
@@ -117,12 +121,17 @@ class AlbumEdit extends React.Component<Props, State> {
                         selectedItems={tags}
                         title="拍摄标签"
                     />
-                    <ImageUploader
-                        imageUrls={photoUrls}
-                        onImageUrlsChange={this.handleImageUrlsChange}
-                    />
-                    <input type="submit" value="提交" />
-                    <input type="button" value="取消" onClick={this.handleCancel} />
+                    <div className="form-item">
+                        <label>照片：</label>
+                        <ImageUploader
+                            imageUrls={photoUrls}
+                            onImageUrlsChange={this.handleImageUrlsChange}
+                        />
+                    </div>
+                    <div className="form-item horizontal-container centered">
+                        <input type="submit" value="提交" className="primary" />
+                        <input type="button" value="取消" onClick={this.handleCancel} />
+                    </div>
                 </form>
             </section>
         );

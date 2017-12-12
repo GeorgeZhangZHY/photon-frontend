@@ -1,0 +1,40 @@
+.photo-viewer {
+    max-width: 800px;
+    width: 90%;
+    height: 600px;
+    position: relative;
+}
+
+.photo-big {
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.photo-switcher {
+    font-size: 1.2rem;
+    border: none;
+    color: #8590a6;
+    min-width: 0;
+    margin: 0;
+}
+
+.photo-switcher:hover{
+    color: #0f88eb;
+}
+
+button.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.2rem;
+    border: none;
+    color: #8590a6;
+    min-width: 0;
+    padding: 0;
+}
+
+button.close:hover{
+    color: #0f88eb;
+}

@@ -29,3 +29,15 @@ export const requestParticipateResults = (applicantId: number) => (
 export const setParticipateResultRead = (albumId: number, userId: number, prevStatus: 'agreed' | 'rejected') => (
     putData('/participates/result', { albumId, userId, prevStatus })
 );
+
+export const requestParticipateRequests = (userId: number) => (
+    getData<ParticipateNotification[]>(`/participates/request/${userId}`)
+);
+
+export const resolveParticipate = (albumId: number, applicantId: number, agreed: boolean) => (
+    putData('/participates', {
+        albumId,
+        applicantId,
+        agreed
+    })
+);

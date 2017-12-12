@@ -7,13 +7,14 @@ import { requestUnreadOthersRequests } from '../../netAccess/requests';
 import { requestUnreadComments } from '../../netAccess/comments';
 import { requestUnreadFollows } from '../../netAccess/follows';
 import { requestUnreadLikes } from '../../netAccess/likes';
-import { requestParticipateResults } from '../../netAccess/participates';
+import { requestParticipateResults, requestParticipateRequests } from '../../netAccess/participates';
 import { RequestPage } from './RequestPage';
 import { FollowPage } from './FollowPage';
 import { LikePage } from './LikePage';
 import { ParticipatePage } from './ParticipatePage';
 import { CommentPage } from './CommentPage';
 import './MessagePane.css';
+import { ParticipateRequestPage } from './ParticipateRequestPage';
 
 export type StateProps = {
     currentUser: User
@@ -21,15 +22,16 @@ export type StateProps = {
 
 type Props = StateProps;
 
-const pages = ['约拍请求', '关注', '喜欢', '评论', '参与'];
+const pages = ['约拍请求', '关注', '喜欢', '评论', '我的参与', '参与者申请'];
 
 type State = {
     likes: LikeNotification[],
     follows: FollowNotification[],
     participateResults: ParticipateNotification[],
+    participateRequests: ParticipateNotification[],
     comments: CommentNotification[],
     requests: OthersRequest[],
-    selectedPage: '约拍请求' | '关注' | '喜欢' | '评论' | '参与'
+    selectedPage: '约拍请求' | '关注' | '喜欢' | '评论' | '我的参与' | '参与者申请'
 };
 
 export class MessagePaneComponent extends React.Component<Props, State> {
@@ -39,6 +41,7 @@ export class MessagePaneComponent extends React.Component<Props, State> {
         comments: [],
         follows: [],
         participateResults: [],
+        participateRequests: [],
         requests: [],
         selectedPage: '约拍请求'
     };
@@ -50,10 +53,12 @@ export class MessagePaneComponent extends React.Component<Props, State> {
         requestUnreadFollows(userId).then(follows => this.setState({ follows }));
         requestUnreadLikes(userId).then(likes => this.setState({ likes }));
         requestParticipateResults(userId).then(participateResults => this.setState({ participateResults }));
+        requestParticipateRequests(userId).then(participateRequests => this.setState({ participateRequests }));
     }
 
     render() {
-        const { comments, follows, likes, participateResults, requests, selectedPage } = this.state;
+        const { comments, follows, likes, participateResults,
+            requests, selectedPage, participateRequests } = this.state;
         const { currentUser } = this.props;
         let pageComponent;
         switch (selectedPage) {
@@ -87,7 +92,7 @@ export class MessagePaneComponent extends React.Component<Props, State> {
                         onChange={(newComments: CommentNotification[]) => this.setState({ comments: newComments })}
                     />);
                 break;
-            case '参与':
+            case '我的参与':
                 pageComponent = (
                     <ParticipatePage
                         currentUserId={currentUser.userId}
@@ -95,6 +100,15 @@ export class MessagePaneComponent extends React.Component<Props, State> {
                             this.setState({ participateResults: newResults })}
                         results={participateResults}
                     />);
+                break;
+            case '参与者申请':
+                pageComponent = (
+                    <ParticipateRequestPage
+                        requests={participateRequests}
+                        onChange={(newRequests: ParticipateNotification[]) =>
+                            this.setState({ participateRequests: newRequests })}
+                    />
+                );
                 break;
             default:
                 pageComponent = null;

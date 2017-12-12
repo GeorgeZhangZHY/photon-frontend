@@ -28,7 +28,7 @@ export class UserSpaceComponent extends React.Component<UserSpaceProps> {
         const isSelf = currentUser.userId === watchingUserId;
         const user: User | UserBriefInfo = isSelf ? currentUser : watchingUser;
         return (
-            <div>
+            <div className="vertical-container centered">
                 <UserIntro
                     isSelf={isSelf}
                     currentUserId={currentUser.userId}
@@ -45,23 +45,23 @@ export class UserSpaceComponent extends React.Component<UserSpaceProps> {
                     <Switch>
                         <Route
                             path={match.path + '/activity'}
-                            render={() => <UserActivityFeed userId={watchingUser.userId} />}
+                            render={() => <UserActivityFeed userId={user.userId} />}
                         />
                         <Route
                             path={match.path + '/post'}
-                            render={() => <UserPostFeed userId={watchingUser.userId} />}
+                            render={() => <UserPostFeed userId={user.userId} />}
                         />
                         <Route
                             path={match.path + '/album'}
-                            render={() => <UserAlbumFeed userId={watchingUser.userId} />}
+                            render={() => <UserAlbumFeed userId={user.userId} />}
                         />
                         <Route
                             path={match.path + '/liked'}
-                            render={() => <LikedAlbumFeed userId={watchingUser.userId} />}
+                            render={() => <LikedAlbumFeed userId={user.userId} />}
                         />
                         <Route
                             path={match.path + '/follow'}
-                            render={() => <FollowedUserFeed followerId={watchingUser.userId} />}
+                            render={() => <FollowedUserFeed followerId={user.userId} />}
                         />
                     </Switch>
                 </section>
@@ -136,7 +136,10 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
                     <div style={backStyle} className="cover-back" />
                 </div>
                 <div className="info-container">
-                    <img src={avatarUrl || defaultAvatar[gender]} alt="头像" className="avatar-big" />
+                    <div
+                        style={{ backgroundImage: `url(${avatarUrl || defaultAvatar[gender]})` }}
+                        className="avatar-big"
+                    />
                     <div className="horizontal-container">
                         <b>{userName}</b>
                         <img src={genderLogos[gender]} alt="性别" className="gender-logo" />
@@ -147,7 +150,7 @@ class UserIntro extends React.Component<UserIntroProps, UserIntroState> {
                         {this.props.isSelf ?
                             <div className="control-pane">
                                 <button onClick={this.toggleContact}>查看联系方式</button>
-                                <button>编辑个人资料</button>
+                                <Link to="/modifyUser">编辑个人资料</Link>
                             </div>
                             : <button
                                 onClick={this.toggleFollow}

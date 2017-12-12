@@ -8,7 +8,7 @@ export type StateProps = {
 
 type Props = StateProps;
 
-export  class FollowActivityFeedComponent extends React.Component<Props> {
+export class FollowActivityFeedComponent extends React.Component<Props> {
 
     loadMoreUserActivity = (pageNum: number, pageSize: number) => {
         return requestFollowedActivities(this.props.currentUserId, pageNum, pageSize);
@@ -16,7 +16,9 @@ export  class FollowActivityFeedComponent extends React.Component<Props> {
 
     render() {
         return (
-            <ActivityFeed onLoadMore={this.loadMoreUserActivity} />
+            <section>
+                <ActivityFeed onLoadMore={this.loadMoreUserActivity} />
+            </section>
         );
     }
 }

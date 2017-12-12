@@ -1,0 +1,11 @@
+.post-brief > *:not(:first-child) {
+    margin-top: 10px;
+}
+
+.content {
+    color: black;
+}
+
+.other-info {
+    color: gray;
+}

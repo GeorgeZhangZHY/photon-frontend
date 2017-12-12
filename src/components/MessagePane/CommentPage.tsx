@@ -23,7 +23,7 @@ export class CommentPage extends React.PureComponent<Props> {
         return (
             <div>
                 {comments.map(c =>
-                    <div key={c.commentId}>
+                    <div key={c.commentId} className="form-item">
                         <UserBrief
                             hideFollow
                             user={{
@@ -36,9 +36,9 @@ export class CommentPage extends React.PureComponent<Props> {
                                 userName: c.userName
                             }}
                         />
-                        <span>评论了您的相册『{c.albumName}』：</span>
-                        <span>{c.content}</span>
-                        <span>{c.commentTime}</span>
+                        <span>评论了您的相册『{c.albumName}』：</span><br/>
+                        <span>{c.content}</span><br/>
+                        <span>{c.commentTime}</span><br/>
                         <button onClick={() => this.handleSetRead(c)}>我知道了</button>
                     </div>)}
             </div>

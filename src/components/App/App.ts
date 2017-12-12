@@ -1,8 +1,13 @@
 import { connect, Dispatch } from 'react-redux';
-import { AppComponent, AppComponentProps } from './component';
+import { AppComponent, DispatchProps, StateProps } from './component';
 import { fetchRegions, fetchCostOptions, fetchGenders, fetchIdentities, fetchTags } from './actions';
+import { Store } from '../../global/mainReducer';
 
-const mapDispatchToProps = (dispatch: Dispatch<{}>): AppComponentProps => ({
+const mapState = (state: Store): StateProps => ({
+    currenUser: state.currentUser
+});
+
+const mapDispatch = (dispatch: Dispatch<{}>): DispatchProps => ({
     initRegions: () => {
         dispatch(fetchRegions());
     },
@@ -20,6 +25,6 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>): AppComponentProps => ({
     }
 });
 
-const App = connect(undefined, mapDispatchToProps)(AppComponent);
+const App = connect<StateProps, DispatchProps>(mapState, mapDispatch)(AppComponent);
 
 export default App;

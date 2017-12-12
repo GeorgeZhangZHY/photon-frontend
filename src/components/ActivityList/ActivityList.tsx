@@ -11,7 +11,7 @@ export class ActivityList extends React.Component<Props> {
     render() {
         const { activities } = this.props;
         return (
-            <div>
+            <div className="form-container">
                 {activities.map(ac =>
                     <ActivityItem
                         key={ac.payload.createTime}

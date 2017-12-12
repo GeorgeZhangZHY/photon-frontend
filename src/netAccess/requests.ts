@@ -1,18 +1,19 @@
 import { postData, getData, putData } from './utils';
 import { OthersRequest } from '../global/models';
 
-export const addNewRequest = (userId: number, postId: number, message: string) => postData('/requests', {
-    userId,
+export const addNewRequest = (requesterId: number, postId: number, message: string) => postData('/requests', {
+    requesterId,
     postId,
     message
 });
 
 export const checkHasRequested = (requesterId: number, postId: number) => getData<{ hasRequested: boolean }>(
-    '/follows/check', {
+    '/requests/check', {
         requesterId,
         postId
     }
-).then(value => value.hasRequested);
+).then(value =>
+    value.hasRequested);
 
 export const requestUnreadOthersRequests = (userId: number) => (
     getData<OthersRequest[]>(`/requests/others/unread/${userId}`)

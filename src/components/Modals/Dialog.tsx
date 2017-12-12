@@ -15,8 +15,8 @@ export default class Dialog extends React.Component<DialogProps> {
             <Modal>
                 <header>{title}</header>
                 {this.props.children}
-                <footer>
-                    <button onClick={onConfirm}>确定</button>
+                <footer className="form-item horizontal-container centered">
+                    <button onClick={onConfirm} className="primary">确定</button>
                     <button onClick={onCancel}>取消</button>
                 </footer>
             </Modal>

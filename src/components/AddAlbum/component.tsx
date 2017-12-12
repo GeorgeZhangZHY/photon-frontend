@@ -3,10 +3,16 @@ import AlbumEdit from '../AlbumEdit/AlbumEdit';
 import { Album, NewAlbum } from '../../global/models';
 import { addNewAlbum } from '../../netAccess/albums';
 
-export class AddAlbum extends React.Component {
+export type StateProps = {
+    currentUserId: number
+};
+
+type Props = StateProps;
+
+export class AddAlbumComponent extends React.Component<Props> {
 
     handleSubmit = (album: Album) => {
-        let newAlbum = { ...album };
+        let newAlbum = { ...album, userId: this.props.currentUserId };
         delete newAlbum.albumId;
         delete newAlbum.createTime;
         return addNewAlbum(newAlbum as NewAlbum);
